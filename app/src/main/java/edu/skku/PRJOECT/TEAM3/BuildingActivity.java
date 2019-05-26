@@ -1,5 +1,7 @@
 package edu.skku.PRJOECT.TEAM3;
 
+import android.content.Intent;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -8,6 +10,10 @@ public class BuildingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setSubtitle("건물 정보");
         setContentView(R.layout.activity_building);
+
+        Intent intent_building = getIntent();
     }
 }

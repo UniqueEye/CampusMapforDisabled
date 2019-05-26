@@ -9,8 +9,7 @@
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
-        android:layout_height="128dp"
-        android:layout_marginBottom="8dp"
+        android:layout_height="96dp"
         app:layout_constraintBottom_toTopOf="@+id/login_editText_id"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,35 +31,35 @@
         android:id="@+id/login_editText_password"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="96dp"
         android:ems="10"
         android:hint="비밀번호"
         android:inputType="textPassword"
-        app:layout_constraintBottom_toTopOf="@+id/login_button_login"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/login_button_login"
-        android:layout_width="250dp"
+        android:layout_width="125dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
         android:text="로그인"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/login_button_register"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/login_button_register"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/login_button_register"
-        android:layout_width="250dp"
+        android:layout_width="125dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="64dp"
+        android:layout_marginBottom="32dp"
         android:text="회원가입"
-        android:textSize="18sp"
-        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/login_button_login" />
 
 </android.support.constraint.ConstraintLayout>
