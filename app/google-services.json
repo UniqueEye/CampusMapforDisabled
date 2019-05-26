@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "406738244676",
+    "firebase_url": "https://mobile-project-241214.firebaseio.com",
+    "project_id": "mobile-project-241214",
+    "storage_bucket": "mobile-project-241214.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:406738244676:android:726917eb8d5b5932",
+        "android_client_info": {
+          "package_name": "edu.skku.PRJOECT.TEAM3"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "406738244676-g3acal5bqpm5d0a7lkv7o274nvaav329.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAczDQ2rrvQsIy5ekNY1MVpE2QWwkaIKbY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "406738244676-g3acal5bqpm5d0a7lkv7o274nvaav329.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
