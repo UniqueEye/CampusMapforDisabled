@@ -48,6 +48,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         MapFragment mapFragment = (MapFragment)fragmentManager.findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         Intent intent_login = getIntent();
+      
         FloatingActionButton button= findViewById(R.id.floatingActionButton);
         final LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
         button.setOnClickListener(new View.OnClickListener()
@@ -65,7 +66,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     lm.requestLocationUpdates(LocationManager.GPS_PROVIDER,100,0, gpsLocationListener);
                     lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,100, 0, networkLocationListener);
                 }
-
             }
         });
     }
