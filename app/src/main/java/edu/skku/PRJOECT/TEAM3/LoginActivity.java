@@ -112,7 +112,7 @@ public class LoginActivity extends BaseActivity {
         if (account != null) {
             Toast.makeText(this, "U Signed In successfully", Toast.LENGTH_LONG).show();
             Log.d(TAG, "Before sending intent in from loginActivity");
-            Intent intent_map = new Intent(getApplicationContext(), EvaluateActivity.class);
+            Intent intent_map = new Intent(getApplicationContext(), MapActivity.class);
             startActivity(intent_map);
         } else {
             Toast.makeText(this, "U Didnt signed in", Toast.LENGTH_LONG).show();

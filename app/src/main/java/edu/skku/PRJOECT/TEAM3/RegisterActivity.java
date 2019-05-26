@@ -76,7 +76,7 @@ public class RegisterActivity extends BaseActivity{
     public void updateUI(FirebaseUser account) {
         if (account != null) {
             Toast.makeText(this, "U Signed In successfully", Toast.LENGTH_LONG).show();
-            Intent intent_map = new Intent(getApplicationContext(), EvaluateActivity.class);
+            Intent intent_map = new Intent(getApplicationContext(), MapActivity.class);
             startActivity(intent_map);
         } else {
             Toast.makeText(this, "U Didnt signed in", Toast.LENGTH_LONG).show();
