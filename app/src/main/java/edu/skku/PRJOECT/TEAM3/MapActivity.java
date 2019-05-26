@@ -31,18 +31,24 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap gmap;
+    private FirebaseAuth mAuth;
     private int counter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setSubtitle("캠퍼스 맵");
+    //    ActionBar actionBar = getSupportActionBar();
+    //    actionBar.setSubtitle("캠퍼스 맵");
         setContentView(R.layout.activity_map);
+/*
+        // Initialize Firebase Auth
+        mAuth = FirebaseAuth.getInstance();
 
         FragmentManager fragmentManager = getFragmentManager();
         MapFragment mapFragment = (MapFragment)fragmentManager.findFragmentById(R.id.map);
@@ -67,7 +73,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,100, 0, networkLocationListener);
                 }
             }
-        });
+        }); */
     }
 
     final LocationListener networkLocationListener = new LocationListener() {
@@ -132,8 +138,27 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             case R.id.map_action_add:
                 Intent intent_evaluate = new Intent(MapActivity.this, EvaluateActivity.class);
                 startActivity(intent_evaluate);
+            case R.id.sign_out:
+                signOut();
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    private void signOut() {
+        mAuth.signOut();
+        updateUI(null);
+    }
+
+    //Change UI according to user data.
+    public void updateUI(FirebaseUser account) {
+        if (account != null) {
+            Toast.makeText(this, "U Signed In successfully", Toast.LENGTH_LONG).show();
+            startActivity(new Intent(this, MapActivity.class));
+        } else {
+            Toast.makeText(this, "U Didnt signed in", Toast.LENGTH_LONG).show();
+            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+        }
+    }
+
 }

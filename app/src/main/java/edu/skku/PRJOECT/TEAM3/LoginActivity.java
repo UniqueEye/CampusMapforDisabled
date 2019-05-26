@@ -3,7 +3,6 @@ package edu.skku.PRJOECT.TEAM3;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -56,7 +55,8 @@ public class LoginActivity extends BaseActivity {
         button_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent_register = new Intent(LoginActivity.this, RegisterActivity.class);
+                Intent intent_register = new Intent(getApplicationContext(), RegisterActivity.class);
+                Log.d(TAG, "register button is clicked");
                 startActivity(intent_register);
             }
         });
@@ -111,7 +111,9 @@ public class LoginActivity extends BaseActivity {
     public void updateUI(FirebaseUser account) {
         if (account != null) {
             Toast.makeText(this, "U Signed In successfully", Toast.LENGTH_LONG).show();
-            startActivity(new Intent(this, MapActivity.class));
+            Log.d(TAG, "Before sending intent in from loginActivity");
+            Intent intent_map = new Intent(getApplicationContext(), EvaluateActivity.class);
+            startActivity(intent_map);
         } else {
             Toast.makeText(this, "U Didnt signed in", Toast.LENGTH_LONG).show();
         }

@@ -11,8 +11,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class EvaluateActivity extends AppCompatActivity {
+
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +26,9 @@ public class EvaluateActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setSubtitle("접근성 평가");
         setContentView(R.layout.activity_evaluate);
+
+        // Initialize Firebase Auth
+        mAuth = FirebaseAuth.getInstance();
 
         final EditText editText_search = findViewById(R.id.evaluate_editText_search);
 
@@ -46,6 +55,8 @@ public class EvaluateActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.evaluate_action_ok:
                 super.onBackPressed();
+            case R.id.sign_out:
+                signOut();
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -61,5 +72,21 @@ public class EvaluateActivity extends AppCompatActivity {
             }
         });
         builder.show();
+    }
+
+    private void signOut() {
+        mAuth.signOut();
+        updateUI(null);
+    }
+
+    //Change UI according to user data.
+    public void updateUI(FirebaseUser account) {
+        if (account != null) {
+            Toast.makeText(this, "U Signed In successfully", Toast.LENGTH_LONG).show();
+            startActivity(new Intent(this, MapActivity.class));
+        } else {
+            Toast.makeText(this, "U Didnt signed in", Toast.LENGTH_LONG).show();
+            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+        }
     }
 }

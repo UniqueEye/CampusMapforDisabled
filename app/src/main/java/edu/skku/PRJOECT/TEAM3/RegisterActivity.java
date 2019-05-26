@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -20,7 +19,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import edu.skku.PRJOECT.TEAM3.BaseActivity;
 
 public class RegisterActivity extends BaseActivity{
 
@@ -78,7 +76,8 @@ public class RegisterActivity extends BaseActivity{
     public void updateUI(FirebaseUser account) {
         if (account != null) {
             Toast.makeText(this, "U Signed In successfully", Toast.LENGTH_LONG).show();
-            startActivity(new Intent(this, MapActivity.class));
+            Intent intent_map = new Intent(getApplicationContext(), EvaluateActivity.class);
+            startActivity(intent_map);
         } else {
             Toast.makeText(this, "U Didnt signed in", Toast.LENGTH_LONG).show();
         }
@@ -108,7 +107,7 @@ public class RegisterActivity extends BaseActivity{
     }
 
 
-    // [START on_start_check_user]
+/*    // [START on_start_check_user]
     @Override
     public void onStart() {
         super.onStart();
@@ -117,7 +116,7 @@ public class RegisterActivity extends BaseActivity{
         updateUI(currentUser);
     }
 
-    // [END on_start_check_user]
+    // [END on_start_check_user]*/
     void alert(String title) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(title);
