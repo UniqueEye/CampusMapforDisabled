@@ -54,6 +54,15 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         setContentView(R.layout.activity_map);
         mAuth = FirebaseAuth.getInstance();
 
+        Button button_test = findViewById(R.id.button);//building 으로 넘어가기 위한 임시 버튼
+        button_test.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent_building = new Intent(MapActivity.this, BuildingActivity.class);
+                startActivity(intent_building);
+            }
+        });
+
         FragmentManager fragmentManager = getFragmentManager();
         SupportMapFragment mapFragment = (SupportMapFragment) this.getSupportFragmentManager().findFragmentById(R.id.map);
         if (mapFragment != null) {
