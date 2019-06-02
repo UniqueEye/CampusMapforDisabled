@@ -35,7 +35,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {//sungyoun
+public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {//sungyoun_브랜치
 
     private int counter;
     private FirebaseAuth mAuth;
