@@ -55,6 +55,7 @@ public class EvaluateActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.evaluate_action_ok:
                 super.onBackPressed();
+                return super.onOptionsItemSelected(item);
             case R.id.sign_out:
                 signOut();
             default:
