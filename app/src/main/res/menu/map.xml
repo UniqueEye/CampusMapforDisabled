@@ -8,4 +8,9 @@
         android:title="Add"
         app:showAsAction="always" />
 
+    <item
+        android:id="@+id/sign_out"
+        android:title="로그아웃"
+        app:showAsAction="never" />
+
 </menu>
