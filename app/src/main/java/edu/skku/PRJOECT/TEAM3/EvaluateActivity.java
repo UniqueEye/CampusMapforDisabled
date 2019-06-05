@@ -16,6 +16,13 @@ import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.Toast;
 
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
+import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -26,10 +33,18 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Arrays;
 
 public class EvaluateActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
+    private String apiKey = "AIzaSyDOn85JQH3cxvUsfgmc5YOJT3VqTs8suqs";
+
+    private String TAG = "Evaluate";
+
+    public LatLng location;
+    public double latitude;
+    public double longitude;
 
     private DatabaseReference mPostReference;
 
@@ -48,9 +63,15 @@ public class EvaluateActivity extends AppCompatActivity {
         actionBar.setSubtitle("접근성 평가");
         setContentView(R.layout.activity_evaluate);
 
+        // Initialize Places.
+        Places.initialize(getApplicationContext(), apiKey);
+
+        // Create a new Places client instance.
+        PlacesClient placesClient = Places.createClient(getApplicationContext());
+
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
-
+        
         Intent intent_evaluate = getIntent();
 
         searchET = findViewById(R.id.evaluate_editText_search);
@@ -60,6 +81,42 @@ public class EvaluateActivity extends AppCompatActivity {
 
         mPostReference = FirebaseDatabase.getInstance().getReference();
         getFirebaseDatabase();
+        
+        // Initialize the AutocompleteSupportFragment.
+        AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
+        getSupportFragmentManager().findFragmentById(R.id.autocomplete_fragment);
+
+        // Specify the types of place data to return.
+        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME,Place.Field.LAT_LNG, Place.Field.ADDRESS));
+
+        // Set up a PlaceSelectionListener to handle the response.
+        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+            @Override
+            public void onPlaceSelected(Place place) {
+                // TODO: Get info about the selected place.
+                Log.i(TAG, "Place: " + place.getName() + ", " + place.getId());
+
+                location = place.getLatLng();
+                try {
+                    latitude = location.latitude;
+                    longitude = location.longitude;
+                    String text = "Lat: " + latitude + "Long: " + longitude;
+                    Toast.makeText(getApplicationContext(), text,
+                            Toast.LENGTH_LONG).show();
+                    Log.i(TAG, "Lat: " + latitude + "Log:" + longitude);
+                    Log.i(TAG, "Address: "+place.getAddress());
+                }catch(NullPointerException e){
+                    Toast.makeText(getApplicationContext(), "Null pointer error try again!",
+                            Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onError(Status status) {
+                // TODO: Handle the error.
+                Log.i(TAG, "An error occurred: " + status);
+            }
+        });
 
         Button button_search = findViewById(R.id.evaluate_button_search);
         button_search.setOnClickListener(new View.OnClickListener() {
@@ -70,7 +127,7 @@ public class EvaluateActivity extends AppCompatActivity {
                 if (query.isEmpty())
                     alert("검색어를 입력하세요");
             }
-        });
+        });*/
     }
 
     @Override
