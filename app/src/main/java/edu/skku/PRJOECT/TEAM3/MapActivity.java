@@ -16,17 +16,14 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
@@ -54,12 +51,21 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         setContentView(R.layout.activity_map);
         mAuth = FirebaseAuth.getInstance();
 
-        Button button_test = findViewById(R.id.button);//building 으로 넘어가기 위한 임시 버튼
-        button_test.setOnClickListener(new View.OnClickListener() {
+        Button btn_bldg = findViewById(R.id.btn_bldg);      //building으로 넘어가기 위한 임시 버튼
+        btn_bldg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent_building = new Intent(MapActivity.this, BuildingActivity.class);
                 startActivity(intent_building);
+            }
+        });
+
+        Button btn_store = findViewById(R.id.btn_store);    //store로 넘어가기 위한 임시 버튼
+        btn_store.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent_store = new Intent(MapActivity.this, StoreActivity.class);
+                startActivity(intent_store);
             }
         });
 
