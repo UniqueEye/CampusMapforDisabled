@@ -58,7 +58,7 @@ public class EvaluateActivity extends AppCompatActivity {
                 getSupportFragmentManager().findFragmentById(R.id.autocomplete_fragment);
 
 // Specify the types of place data to return.
-        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME,Place.Field.LAT_LNG));
+        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME,Place.Field.LAT_LNG, Place.Field.ADDRESS));
 
 // Set up a PlaceSelectionListener to handle the response.
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
@@ -75,6 +75,7 @@ public class EvaluateActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), text,
                             Toast.LENGTH_LONG).show();
                     Log.i(TAG, "Lat: " + latitude + "Log:" + longitude);
+                    Log.i(TAG, "Address: "+place.getAddress());
                 }catch(NullPointerException e){
                     Toast.makeText(getApplicationContext(), "Null pointer error try again!",
                             Toast.LENGTH_LONG).show();
