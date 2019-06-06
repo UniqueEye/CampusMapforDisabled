@@ -74,7 +74,7 @@ public class EvaluateActivity extends AppCompatActivity {
         
         Intent intent_evaluate = getIntent();
 
-        searchET = findViewById(R.id.evaluate_editText_search);
+ //       searchET = findViewById(R.id.evaluate_editText_search);
         doorRB = findViewById(R.id.evaluate_ratingBar_door);
         spaceRB = findViewById(R.id.evaluate_ratingBar_space);
         toiletRB = findViewById(R.id.evaluate_ratingBar_toilet);
@@ -117,7 +117,7 @@ public class EvaluateActivity extends AppCompatActivity {
                 Log.i(TAG, "An error occurred: " + status);
             }
         });
-
+/*
         Button button_search = findViewById(R.id.evaluate_button_search);
         button_search.setOnClickListener(new View.OnClickListener() {
             @Override
