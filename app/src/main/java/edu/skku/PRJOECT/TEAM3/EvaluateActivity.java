@@ -23,6 +23,8 @@ import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.model.RectangularBounds;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.firebase.auth.FirebaseAuth;
@@ -43,6 +45,7 @@ public class EvaluateActivity extends AppCompatActivity {
     private String apiKey = "AIzaSyDOn85JQH3cxvUsfgmc5YOJT3VqTs8suqs";
     int door_ack =0, space_ack = 0, toilet_ack = 0;
     private String TAG = "Evaluate";
+
     public LatLng location;
     public double latitude;
     public double longitude;
@@ -69,7 +72,7 @@ public class EvaluateActivity extends AppCompatActivity {
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
-        
+
         Intent intent_evaluate = getIntent();
 
         //searchET = findViewById(R.id.evaluate_editText_search);
