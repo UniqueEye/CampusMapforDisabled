@@ -74,7 +74,7 @@ public class EvaluateActivity extends AppCompatActivity {
         
         Intent intent_evaluate = getIntent();
 
-        searchET = findViewById(R.id.evaluate_editText_search);
+        //searchET = findViewById(R.id.evaluate_editText_search);
         doorRB = findViewById(R.id.evaluate_ratingBar_door);
         spaceRB = findViewById(R.id.evaluate_ratingBar_space);
         toiletRB = findViewById(R.id.evaluate_ratingBar_toilet);
@@ -87,7 +87,7 @@ public class EvaluateActivity extends AppCompatActivity {
         getSupportFragmentManager().findFragmentById(R.id.autocomplete_fragment);
 
         // Specify the types of place data to return.
-        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME,Place.Field.LAT_LNG, Place.Field.ADDRESS));
+        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG, Place.Field.ADDRESS));
 
         // Set up a PlaceSelectionListener to handle the response.
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
@@ -118,7 +118,7 @@ public class EvaluateActivity extends AppCompatActivity {
             }
         });
 
-        Button button_search = findViewById(R.id.evaluate_button_search);
+        /*Button button_search = findViewById(R.id.evaluate_button_search);
         button_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
