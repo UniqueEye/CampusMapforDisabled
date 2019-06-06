@@ -24,8 +24,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.net.PlacesClient;
-
 import java.util.Arrays;
+
 
 public class EvaluateActivity extends AppCompatActivity {
 
@@ -60,9 +60,9 @@ public class EvaluateActivity extends AppCompatActivity {
 
 // Specify the types of place data to return.
         autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME,Place.Field.LAT_LNG, Place.Field.ADDRESS));
-        autocompleteFragment.setLocationRestriction(RectangularBounds.newInstance(
+        autocompleteFragment.setLocationBias(RectangularBounds.newInstance(
                 new LatLng(37, 126),
-                new LatLng(38, 127)));;
+                new LatLng(38, 127)));
 
 
 // Set up a PlaceSelectionListener to handle the response.
@@ -71,7 +71,6 @@ public class EvaluateActivity extends AppCompatActivity {
             public void onPlaceSelected(Place place) {
                 // TODO: Get info about the selected place.
                 Log.i(TAG, "Place: " + place.getName() + ", " + place.getId());
-
                 location = place.getLatLng();
                 try {
                     latitude = location.latitude;
