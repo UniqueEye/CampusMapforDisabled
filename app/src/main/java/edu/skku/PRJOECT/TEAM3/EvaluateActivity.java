@@ -39,6 +39,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Arrays;
 
+
 public class EvaluateActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
