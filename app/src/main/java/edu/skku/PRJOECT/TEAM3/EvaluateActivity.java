@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.Status;
@@ -41,7 +42,8 @@ public class EvaluateActivity extends AppCompatActivity {
     private String apiKey = "AIzaSyDOn85JQH3cxvUsfgmc5YOJT3VqTs8suqs";
     int door_ack =0, space_ack = 0, toilet_ack = 0;
     private String TAG = "Evaluate";
-
+    String place_name;
+    TextView textView_name;
     public LatLng location;
     public double latitude;
     public double longitude;
@@ -78,6 +80,7 @@ public class EvaluateActivity extends AppCompatActivity {
         doorRB = findViewById(R.id.evaluate_ratingBar_door);
         spaceRB = findViewById(R.id.evaluate_ratingBar_space);
         toiletRB = findViewById(R.id.evaluate_ratingBar_toilet);
+        textView_name = findViewById(R.id.evaluate_textView_name);
 
         mPostReference = FirebaseDatabase.getInstance().getReference();
         getFirebaseDatabase();
@@ -118,7 +121,9 @@ public class EvaluateActivity extends AppCompatActivity {
             @Override
             public void onPlaceSelected(Place place) {
                 // TODO: Get info about the selected place.
-                Log.i(TAG, "Place: " + place.getName() + ", " + place.getId());
+                place_name = place.getName();
+                Log.i(TAG, "Place: " + place.getName() + ", " + place.getId()+","+place_name);
+                textView_name.setText(place_name);
 
                 location = place.getLatLng();
                 try {
