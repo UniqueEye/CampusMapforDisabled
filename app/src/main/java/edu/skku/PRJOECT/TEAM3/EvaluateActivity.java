@@ -42,23 +42,16 @@ public class EvaluateActivity extends AppCompatActivity {
     private String apiKey = "AIzaSyDOn85JQH3cxvUsfgmc5YOJT3VqTs8suqs";
     int door_ack =0, space_ack = 0, toilet_ack = 0;
     private String TAG = "Evaluate";
-    String place_name;
-    TextView textView_name, textView_addr;
     public LatLng location;
     public double latitude;
     public double longitude;
     public float door, space, toilet;
-
     private DatabaseReference mPostReference;
-
     StorePost post = new StorePost();
-    //String name = " ";
+    String place_name;
+    TextView textView_name, textView_addr;
     String addr;
-
-    EditText searchET;
-    RatingBar doorRB;
-    RatingBar spaceRB;
-    RatingBar toiletRB;
+    RatingBar doorRB, spaceRB, toiletRB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,8 +79,6 @@ public class EvaluateActivity extends AppCompatActivity {
         textView_addr = findViewById(R.id.evaluate_textView_address);
 
         mPostReference = FirebaseDatabase.getInstance().getReference();
-        getFirebaseDatabase();//이미 식당이 있으면 firebase로 부터 가져오고, 그렇지 않으면 가져오지 않음(post에 값을 추가하지 않음)
-        //post.count == 0이면 신규 등록 상점!
 
         // Initialize the AutocompleteSupportFragment.
         AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
@@ -145,6 +136,10 @@ public class EvaluateActivity extends AppCompatActivity {
                             Toast.LENGTH_LONG).show();
                 }
 
+                getFirebaseDatabase();//이미 식당이 있으면 firebase로 부터 가져오고, 그렇지 않으면 가져오지 않음(post에 값을 추가하지 않음)
+                //post.count == 0이면 신규 등록 상점!
+
+
                 if(post.count == 0){//신규 등록 상점
                     post.name = place_name;
                     post.addr = addr;
@@ -155,7 +150,7 @@ public class EvaluateActivity extends AppCompatActivity {
                 else{
                     Log.i(TAG, "기존 식당 Name " + place_name + " addr: " + addr + " Lat: " + latitude + " Lon: "+latitude);
                 }
-                //이미 등록된 상점은 할 거 없음
+
             }
 
             @Override
@@ -213,10 +208,10 @@ public class EvaluateActivity extends AppCompatActivity {
                     Log.d("post", "null");
                 }
                 else {
+                    post.door = (post.count * post.door + door) / (post.count+1);
+                    post.space = (post.count * post.space + space) / (post.count+1);
+                    post.toilet = (post.count * post.toilet + toilet) / (post.count+1);
                     post.count++;
-                    post.door = (post.count * post.door + door) / (post.count);
-                    post.space = (post.count * post.space + space) / (post.count);
-                    post.toilet = (post.count * post.toilet + toilet) / (post.count);
                     //이 시점에 post에 모든 정보가 추가되어야 함.
                     postFirebaseDatabase();
                 }
@@ -233,13 +228,19 @@ public class EvaluateActivity extends AppCompatActivity {
 
     public void getFirebaseDatabase() {
         final ValueEventListener postListener = new ValueEventListener() {
+
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.d("getFirebase: ", "Check this out");
+
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     String key = postSnapshot.getKey();
-                    if (key.equals(place_name)&&key.equals(addr)) {//식당 이름이랑 주소가 같은 것만 가져온다.
+                    Log.d("Key-> ", key+"/"+place_name);
+
+                    if (key.equals(place_name)) {//식당 이름이랑 주소가 같은 것만 가져온다.
                         Log.d("getDB", "Success");
                         post = postSnapshot.getValue(StorePost.class);
+                        Log.d(TAG, "firebase Name " + post.name + " addr: " + post.addr + " Lat: " + post.lat + " Lon: "+post.lon+ " Door: "+ post.door);
                         Log.d(TAG,"post.count: "+String.valueOf(post.count));
                     }
                 }
