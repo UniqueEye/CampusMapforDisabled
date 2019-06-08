@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.Status;
@@ -41,20 +42,16 @@ public class EvaluateActivity extends AppCompatActivity {
     private String apiKey = "AIzaSyDOn85JQH3cxvUsfgmc5YOJT3VqTs8suqs";
     int door_ack =0, space_ack = 0, toilet_ack = 0;
     private String TAG = "Evaluate";
-
     public LatLng location;
     public double latitude;
     public double longitude;
-
+    public float door, space, toilet;
     private DatabaseReference mPostReference;
-
-    StorePost post = null;
-    String name = "본찌돈까스";
-
-    EditText searchET;
-    RatingBar doorRB;
-    RatingBar spaceRB;
-    RatingBar toiletRB;
+    StorePost post = new StorePost();
+    String place_name;
+    TextView textView_name, textView_addr;
+    String addr;
+    RatingBar doorRB, spaceRB, toiletRB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,9 +75,10 @@ public class EvaluateActivity extends AppCompatActivity {
         doorRB = findViewById(R.id.evaluate_ratingBar_door);
         spaceRB = findViewById(R.id.evaluate_ratingBar_space);
         toiletRB = findViewById(R.id.evaluate_ratingBar_toilet);
+        textView_name = findViewById(R.id.evaluate_textView_name);
+        textView_addr = findViewById(R.id.evaluate_textView_address);
 
         mPostReference = FirebaseDatabase.getInstance().getReference();
-        getFirebaseDatabase();
 
         // Initialize the AutocompleteSupportFragment.
         AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
@@ -89,7 +87,7 @@ public class EvaluateActivity extends AppCompatActivity {
         // Specify the types of place data to return.
         autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME,Place.Field.LAT_LNG, Place.Field.ADDRESS));
 
-        //rating listener
+        ///rating listener
         doorRB.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
@@ -118,21 +116,41 @@ public class EvaluateActivity extends AppCompatActivity {
             @Override
             public void onPlaceSelected(Place place) {
                 // TODO: Get info about the selected place.
-                Log.i(TAG, "Place: " + place.getName() + ", " + place.getId());
+                place_name = place.getName();
+                Log.i(TAG, "Place: " + place.getName() + ", " + place.getId()+","+place_name);
+                textView_name.setText(place_name);
 
                 location = place.getLatLng();
                 try {
                     latitude = location.latitude;
                     longitude = location.longitude;
+                    addr = place.getAddress();
+                    textView_addr.setText(addr);
                     String text = "Lat: " + latitude + "Long: " + longitude;
                     Toast.makeText(getApplicationContext(), text,
                             Toast.LENGTH_LONG).show();
                     Log.i(TAG, "Lat: " + latitude + "Log:" + longitude);
-                    Log.i(TAG, "Address: "+place.getAddress());
+                    Log.i(TAG, "Address: "+addr);
                 }catch(NullPointerException e){
                     Toast.makeText(getApplicationContext(), "Null pointer error try again!",
                             Toast.LENGTH_LONG).show();
                 }
+
+                getFirebaseDatabase();//이미 식당이 있으면 firebase로 부터 가져오고, 그렇지 않으면 가져오지 않음(post에 값을 추가하지 않음)
+                //post.count == 0이면 신규 등록 상점!
+
+
+                if(post.count == 0){//신규 등록 상점
+                    post.name = place_name;
+                    post.addr = addr;
+                    post.lat = latitude;
+                    post.lon = longitude;
+                    Log.i(TAG, "Name " + place_name + " addr: " + addr + " Lat: " + latitude + " Lon: "+latitude);
+                }
+                else{
+                    Log.i(TAG, "기존 식당 Name " + place_name + " addr: " + addr + " Lat: " + latitude + " Lon: "+latitude);
+                }
+
             }
 
             @Override
@@ -152,7 +170,12 @@ public class EvaluateActivity extends AppCompatActivity {
                     alert("검색어를 입력하세요");
             }
         });*/
-    }
+
+
+
+
+
+    } //onCreate
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -167,10 +190,15 @@ public class EvaluateActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.evaluate_action_ok:
 
-                if(door_ack*space_ack*toilet_ack == 0) {
+                if(post.name==null){
+                    alert("상점을 검색해주세요");
+                    return super.onOptionsItemSelected(item);
+                }
+                else if(door_ack*space_ack*toilet_ack == 0) {
                     alert("평가를 완료해주세요");
                     return super.onOptionsItemSelected(item);
                 }
+
 
                 door_ack = 0;
                 space_ack = 0;
@@ -178,19 +206,18 @@ public class EvaluateActivity extends AppCompatActivity {
                 //initialize the ack
                 Log.d("\n2. ack ", Integer.toString(door_ack)+" "+Integer.toString(space_ack)+" "+Integer.toString(toilet_ack) );
 
-                float door = doorRB.getRating();
-                float space = spaceRB.getRating();
-                float toilet = toiletRB.getRating();
-
+                door = doorRB.getRating();
+                space = spaceRB.getRating();
+                toilet = toiletRB.getRating();
                 if (post == null) {
                     Log.d("post", "null");
                 }
                 else {
-                    post.door = (post.count * post.door + door) / (post.count + 1);
-                    post.space = (post.count * post.space + space) / (post.count + 1);
-                    post.toilet = (post.count * post.toilet + toilet) / (post.count + 1);
+                    post.door = (post.count * post.door + door) / (post.count+1);
+                    post.space = (post.count * post.space + space) / (post.count+1);
+                    post.toilet = (post.count * post.toilet + toilet) / (post.count+1);
                     post.count++;
-
+                    //이 시점에 post에 모든 정보가 추가되어야 함.
                     postFirebaseDatabase();
                 }
 
@@ -206,14 +233,20 @@ public class EvaluateActivity extends AppCompatActivity {
 
     public void getFirebaseDatabase() {
         final ValueEventListener postListener = new ValueEventListener() {
+
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.d("getFirebase: ", "Check this out");
+
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     String key = postSnapshot.getKey();
-                    if (key.equals(name)) {
-                        Log.d("getDB", "Success");
+                    Log.d("Key-> ", key+"/"+place_name);
 
+                    if (key.equals(place_name)) {//식당 이름이랑 주소가 같은 것만 가져온다.
+                        Log.d("getDB", "Success");
                         post = postSnapshot.getValue(StorePost.class);
+                        Log.d(TAG, "firebase Name " + post.name + " addr: " + post.addr + " Lat: " + post.lat + " Lon: "+post.lon+ " Door: "+ post.door);
+                        Log.d(TAG,"post.count: "+String.valueOf(post.count));
                     }
                 }
             }
@@ -227,9 +260,11 @@ public class EvaluateActivity extends AppCompatActivity {
 
     public void postFirebaseDatabase() {
         Map<String, Object> postValues = post.toMap();
-
         Map<String, Object> childUpdates = new HashMap<>();
-        childUpdates.put("/store/" + name, postValues);
+
+        //post = new StorePost(name, addr, latitude, longitude, count, door, space, toilet, count);//?
+
+        childUpdates.put("/store/" + place_name, postValues);
         mPostReference.updateChildren(childUpdates);
     }
 
