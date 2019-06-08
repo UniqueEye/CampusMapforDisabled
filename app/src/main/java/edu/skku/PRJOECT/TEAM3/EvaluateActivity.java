@@ -74,7 +74,6 @@ public class EvaluateActivity extends AppCompatActivity {
         
         Intent intent_evaluate = getIntent();
 
-
         //searchET = findViewById(R.id.evaluate_editText_search);
         doorRB = findViewById(R.id.evaluate_ratingBar_door);
         spaceRB = findViewById(R.id.evaluate_ratingBar_space);
@@ -82,7 +81,7 @@ public class EvaluateActivity extends AppCompatActivity {
 
         mPostReference = FirebaseDatabase.getInstance().getReference();
         getFirebaseDatabase();
-        
+
         // Initialize the AutocompleteSupportFragment.
         AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
         getSupportFragmentManager().findFragmentById(R.id.autocomplete_fragment);
@@ -143,8 +142,7 @@ public class EvaluateActivity extends AppCompatActivity {
             }
         });
 
-        Button button_search = findViewById(R.id.evaluate_button_search);
-
+      /*  Button button_search = findViewById(R.id.evaluate_button_search);
         button_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
