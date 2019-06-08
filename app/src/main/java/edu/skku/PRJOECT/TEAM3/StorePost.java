@@ -6,18 +6,26 @@ import java.util.Map;
 public class StorePost {
     public String name;
     public String addr;
-    public float lat;
-    public float lon;
+    public double lat;
+    public double lon;
     public int count;
     public float door;
     public float space;
     public float toilet;
 
     public StorePost() {
+        name = null;
+        addr = null;
+        lat = 0;
+        lon = 0;
+        count = 0;
+        door = 0;
+        space = 0;
+        toilet = 0;
 
     }
 
-    public StorePost(String name, String addr, float lat, float lon, int count, float door, float space, float toilet) {
+    public StorePost(String name, String addr, double lat, double lon, int count, float door, float space, float toilet) {
         this.name = name;
         this.addr = addr;
         this.lat = lat;
