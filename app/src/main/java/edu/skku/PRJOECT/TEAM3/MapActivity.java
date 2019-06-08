@@ -10,12 +10,14 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,17 +33,23 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {//sungyoun_브랜치
 
     private int counter;
     private FirebaseAuth mAuth;
     private static final String TAG = "MapActivity";
-
+    private DatabaseReference mPostReference;
     public GoogleMap gmap;
     public double longitude;
     public double latitude;
     public double altitude;
+    StorePost post = new StorePost();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +76,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 startActivity(intent_store);
             }
         });
+        mPostReference = FirebaseDatabase.getInstance().getReference();
 
         FragmentManager fragmentManager = getFragmentManager();
         SupportMapFragment mapFragment = (SupportMapFragment) this.getSupportFragmentManager().findFragmentById(R.id.map);
@@ -119,6 +128,50 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 }
             }
         });
+        getFirebaseDatabase();
+    }
+
+    public void getFirebaseDatabase() {//Firebase에서 location을 받아 pin을 찍는다.
+        final ValueEventListener postListener = new ValueEventListener() {
+            final LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    String key = postSnapshot.getKey();
+                    Log.d("getDB", "Success");
+                    post = postSnapshot.getValue(StorePost.class);
+                    String addr = post.addr;
+                    double lat = post.lat;
+                    double lon = post.lon;
+
+                    LatLng my_loc = new LatLng(lat, lon);
+
+                    Marker new_mkr = gmap.addMarker(new MarkerOptions()
+                            .position(my_loc)
+                            .title(key)
+                            .snippet(addr));
+                    //gmap.moveCamera(CameraUpdateFactory.newLatLng(my_loc));
+                    //gmap.animateCamera(CameraUpdateFactory.zoomTo(17));
+
+                    if ( Build.VERSION.SDK_INT >= 23 &&
+                            ContextCompat.checkSelfPermission( getApplicationContext(),
+                                    android.Manifest.permission.ACCESS_FINE_LOCATION ) != PackageManager.PERMISSION_GRANTED ) {
+                        ActivityCompat.requestPermissions( MapActivity.this, new String[]
+                                { android.Manifest.permission.ACCESS_FINE_LOCATION },0 );
+                    }
+                    else{
+                        lm.requestLocationUpdates(LocationManager.GPS_PROVIDER,100,0, gpsLocationListener);
+                        lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,100, 0, networkLocationListener);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {}
+        };
+
+        mPostReference.child("store").addValueEventListener(postListener);
     }
 
     final LocationListener networkLocationListener = new LocationListener() {
