@@ -107,6 +107,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             @Override
             public void onClick(View view)
             {
+                Log.d("Finding the current location", "Here");
                 LatLng my_loc = new LatLng(latitude, longitude);
 
                 Marker new_mkr = gmap.addMarker(new MarkerOptions()
