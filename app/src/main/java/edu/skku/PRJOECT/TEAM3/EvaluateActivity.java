@@ -190,10 +190,15 @@ public class EvaluateActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.evaluate_action_ok:
 
-                if(door_ack*space_ack*toilet_ack == 0) {
+                if(post.name==null){
+                    alert("상점을 검색해주세요");
+                    return super.onOptionsItemSelected(item);
+                }
+                else if(door_ack*space_ack*toilet_ack == 0) {
                     alert("평가를 완료해주세요");
                     return super.onOptionsItemSelected(item);
                 }
+
 
                 door_ack = 0;
                 space_ack = 0;
