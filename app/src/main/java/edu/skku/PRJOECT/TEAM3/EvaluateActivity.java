@@ -39,7 +39,7 @@ public class EvaluateActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private String apiKey = "AIzaSyDOn85JQH3cxvUsfgmc5YOJT3VqTs8suqs";
-
+    int door_ack =0, space_ack = 0, toilet_ack = 0;
     private String TAG = "Evaluate";
 
     public LatLng location;
@@ -88,6 +88,30 @@ public class EvaluateActivity extends AppCompatActivity {
 
         // Specify the types of place data to return.
         autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME,Place.Field.LAT_LNG, Place.Field.ADDRESS));
+
+        //rating listener
+        doorRB.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                door_ack++;
+            }
+        });
+
+        spaceRB.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                space_ack++;
+            }
+        });
+        toiletRB.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                toilet_ack++;
+            }
+        });
+        Log.d("\n1. ack ", Integer.toString(door_ack)+" "+Integer.toString(space_ack)+" "+Integer.toString(toilet_ack) );
+        ///
+
 
         // Set up a PlaceSelectionListener to handle the response.
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
@@ -138,12 +162,21 @@ public class EvaluateActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
+
         switch (item.getItemId()) {
             case R.id.evaluate_action_ok:
-                if (!doorRB.isDirty() || !spaceRB.isDirty() || !toiletRB.isDirty()) {
+
+                if(door_ack*space_ack*toilet_ack == 0) {
                     alert("평가를 완료해주세요");
                     return super.onOptionsItemSelected(item);
                 }
+
+                door_ack = 0;
+                space_ack = 0;
+                toilet_ack = 0;
+                //initialize the ack
+                Log.d("\n2. ack ", Integer.toString(door_ack)+" "+Integer.toString(space_ack)+" "+Integer.toString(toilet_ack) );
 
                 float door = doorRB.getRating();
                 float space = spaceRB.getRating();
