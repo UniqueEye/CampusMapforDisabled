@@ -57,6 +57,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     public double longitude;
     public double latitude;
     public double altitude;
+    private Marker currentMarker = null;
     StorePost store_post = new StorePost();
     BuildingPost building_post = new BuildingPost();
     ArrayList<String> building_id = new ArrayList<>();
@@ -132,13 +133,15 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             @Override
             public void onClick(View view)
             {
+                if(currentMarker != null) currentMarker.remove();
                 Log.d("Current location", "Here");
                 LatLng my_loc = new LatLng(latitude, longitude);
-
-                Marker new_mkr = gmap.addMarker(new MarkerOptions()
+                BitmapDrawable bitmapdraw = (BitmapDrawable)getResources().getDrawable(R.drawable.current_location_pin);
+                Bitmap b=bitmapdraw.getBitmap();
+                Bitmap smallMarker = Bitmap.createScaledBitmap(b, 50, 50, false);
+                currentMarker = gmap.addMarker(new MarkerOptions()
                         .position(my_loc)
-                        .title("Here")
-                        .snippet("I got you"));
+                        .icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
                 gmap.moveCamera(CameraUpdateFactory.newLatLng(my_loc));
                 gmap.animateCamera(CameraUpdateFactory.zoomTo(17));
 
