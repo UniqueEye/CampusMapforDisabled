@@ -42,7 +42,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {//sungyoun_브랜치
+import java.util.ArrayList;
+import java.util.Iterator;
+
+public class MapActivity extends AppCompatActivity implements OnMapReadyCallback{//sungyoun_브랜치
 
     private int counter;
     private FirebaseAuth mAuth;
@@ -54,6 +57,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     public double altitude;
     StorePost store_post = new StorePost();
     BuildingPost building_post = new BuildingPost();
+    ArrayList<String> building_id = new ArrayList<>();
+    ArrayList<String> store_id = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -149,25 +154,22 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-
                         String key = postSnapshot.getKey();
                         Log.d("Building Key->", key);
-
-
                         building_post = postSnapshot.getValue(BuildingPost.class);
-
                         double lat = building_post.lat;
                         double lon = building_post.lon;
 
                         LatLng my_loc = new LatLng(lat, lon);
-                    BitmapDrawable bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.building_location_pin);
-                    Bitmap b=bitmapdraw.getBitmap();
-                    Bitmap smallMarker = Bitmap.createScaledBitmap(b, 150, 150, false);
+                        BitmapDrawable bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.building_location_pin);
+                        Bitmap b=bitmapdraw.getBitmap();
+                        Bitmap smallMarker = Bitmap.createScaledBitmap(b, 150, 150, false);
                         Marker new_mkr = gmap.addMarker(new MarkerOptions()
                                 .position(my_loc)
                                 .title(key)
                         .icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
-
+                        building_id.add(new_mkr.getId());
+                        gmap.setOnInfoWindowClickListener(infoWindowClickListener);
                 }
             }
 
@@ -177,6 +179,36 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         };
            building_mPostReference.child("building").addValueEventListener(postListener);
     }
+    GoogleMap.OnInfoWindowClickListener infoWindowClickListener = new GoogleMap.OnInfoWindowClickListener() {
+        @Override
+        public void onInfoWindowClick(Marker marker) {
+            String markerId = marker.getId();
+            int ack = 0;
+            Iterator building_it = building_id.iterator();
+            //Iterator store_it = store_id.iterator();
+
+            while(building_it.hasNext()){
+                if(building_it.next().equals(markerId)) {
+                    ack = 1;
+                    Log.d("Name", marker.getTitle());
+                    //building intent
+                    Intent building_intent = new Intent(MapActivity.this, BuildingActivity.class);
+                    building_intent.putExtra("name", marker.getTitle());
+                    startActivity(building_intent);
+                    Toast.makeText(MapActivity.this, "Building Marker ID : "+markerId, Toast.LENGTH_SHORT).show();
+                }
+            }
+            if(ack == 0){
+                //intent store
+                Log.d("Name", marker.getTitle());
+                Intent store_intent = new Intent(MapActivity.this, StoreActivity.class);
+                store_intent.putExtra("name", marker.getTitle());
+                startActivity(store_intent);
+                Toast.makeText(MapActivity.this, "Store Marker ID : "+markerId, Toast.LENGTH_SHORT).show();
+            }
+        }
+    };
+
 
 
     public void store_getFirebaseDatabase() {//Firebase에서 location을 받아 pin을 찍는다.
@@ -203,12 +235,12 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     BitmapDrawable bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.store_location_pin);
                     Bitmap b=bitmapdraw.getBitmap();
                     Bitmap smallMarker = Bitmap.createScaledBitmap(b, 150, 150, false);
-                        Marker new_mkr = gmap.addMarker(new MarkerOptions()
+                    Marker new_mkr = gmap.addMarker(new MarkerOptions()
                                 .position(my_loc)
                                 .title(key)
                                 .snippet(addr)
                                 .icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
-
+                    store_id.add(new_mkr.getId());
                 }
             }
 
@@ -252,13 +284,18 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         gmap=map;
         LatLng SEOUL = new LatLng(37.293918, 126.975426);
         MarkerOptions markerOptions = new MarkerOptions();
+        /*
         markerOptions.position(SEOUL);
         markerOptions.title("SKKU");
         markerOptions.snippet("Welcome to SKKU");
         map.addMarker(markerOptions);
+        */
         map.moveCamera(CameraUpdateFactory.newLatLng(SEOUL));
         map.animateCamera(CameraUpdateFactory.zoomTo(17));
+
     }
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {//상단 map 메뉴를 띄운다
         getMenuInflater().inflate(R.menu.map, menu);
