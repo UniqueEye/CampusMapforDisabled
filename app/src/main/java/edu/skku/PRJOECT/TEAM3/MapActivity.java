@@ -114,6 +114,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     map.animateCamera(CameraUpdateFactory.zoomTo(17));
                     //
                     gmap.setLatLngBoundsForCameraTarget(skku_campus);
+                    gmap.setMinZoomPreference(13.0f);
+                    gmap.setMaxZoomPreference(17.0f);
                     //
                 }
             });
