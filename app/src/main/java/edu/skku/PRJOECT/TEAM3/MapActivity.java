@@ -59,6 +59,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     public double longitude;
     public double latitude;
     public double altitude;
+    private Marker currentMarker = null;
     StorePost store_post = new StorePost();
     BuildingPost building_post = new BuildingPost();
     ArrayList<String> building_id = new ArrayList<>();
@@ -75,25 +76,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         actionBar.setSubtitle("캠퍼스 맵");
         setContentView(R.layout.activity_map);
         mAuth = FirebaseAuth.getInstance();
-
-
-        Button btn_bldg = findViewById(R.id.btn_bldg);      //building으로 넘어가기 위한 임시 버튼
-        btn_bldg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent_building = new Intent(MapActivity.this, BuildingActivity.class);
-                startActivity(intent_building);
-            }
-        });
-
-        Button btn_store = findViewById(R.id.btn_store);    //store로 넘어가기 위한 임시 버튼
-        btn_store.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent_store = new Intent(MapActivity.this, StoreActivity.class);
-                startActivity(intent_store);
-            }
-        });
         store_mPostReference = FirebaseDatabase.getInstance().getReference();
         building_mPostReference = FirebaseDatabase.getInstance().getReference();
 
@@ -105,17 +87,12 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 public void onMapReady(final GoogleMap map) {
                     gmap=map;
                     LatLng SEOUL = new LatLng(37.293918, 126.975426);
-
-                    /*MarkerOptions markerOptions = new MarkerOptions();
-                    markerOptions.position(SEOUL);
-                    markerOptions.title("SKKU");
-                    markerOptions.snippet("Welcome to SKKU");
-                    map.addMarker(markerOptions);
-                    */
                     map.moveCamera(CameraUpdateFactory.newLatLng(SEOUL));
                     map.animateCamera(CameraUpdateFactory.zoomTo(17));
                     //
                     gmap.setLatLngBoundsForCameraTarget(skku_campus);
+                    gmap.setMinZoomPreference(13.0f);
+                    gmap.setMaxZoomPreference(17.0f);
                     //
                 }
             });
@@ -132,15 +109,31 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             @Override
             public void onClick(View view)
             {
+                if(currentMarker != null) currentMarker.remove();
                 Log.d("Current location", "Here");
-                LatLng my_loc = new LatLng(latitude, longitude);
 
-                Marker new_mkr = gmap.addMarker(new MarkerOptions()
+                LatLng default_location = new LatLng(37.293918, 126.975426);
+                LatLng my_loc = new LatLng(latitude, longitude);
+                Log.d("current location", String.valueOf(latitude) + ": "+String.valueOf(longitude));
+                if(latitude == 0){
+                    gmap.animateCamera(CameraUpdateFactory.newLatLngZoom(default_location, 20));
+                }
+                BitmapDrawable bitmapdraw = (BitmapDrawable)getResources().getDrawable(R.drawable.current_location_pin);
+                Bitmap b=bitmapdraw.getBitmap();
+                Bitmap smallMarker = Bitmap.createScaledBitmap(b, 50, 50, false);
+                currentMarker = gmap.addMarker(new MarkerOptions()
                         .position(my_loc)
-                        .title("Here")
-                        .snippet("I got you"));
-                gmap.moveCamera(CameraUpdateFactory.newLatLng(my_loc));
-                gmap.animateCamera(CameraUpdateFactory.zoomTo(17));
+                        .icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
+
+                //Log.d("Counter", String.valueOf(counter));
+                if(latitude == 0) {
+                    gmap.moveCamera(CameraUpdateFactory.newLatLng(default_location));
+                    gmap.animateCamera(CameraUpdateFactory.zoomTo(17));
+                }
+                else {
+                    gmap.animateCamera(CameraUpdateFactory.newLatLngZoom(my_loc, 20));
+                }
+
 
                 if ( Build.VERSION.SDK_INT >= 23 &&
                         ContextCompat.checkSelfPermission( getApplicationContext(),
@@ -298,13 +291,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         gmap=map;
         LatLng SEOUL = new LatLng(37.293918, 126.975426);
         MarkerOptions markerOptions = new MarkerOptions();
-        /*
-        markerOptions.position(SEOUL);
-        markerOptions.title("SKKU");
-        markerOptions.snippet("Welcome to SKKU");
-        map.addMarker(markerOptions);
-        */
-        map.moveCamera(CameraUpdateFactory.newLatLng(SEOUL));
+        map.animateCamera(CameraUpdateFactory.newLatLng(SEOUL));
         map.animateCamera(CameraUpdateFactory.zoomTo(17));
 
     }
