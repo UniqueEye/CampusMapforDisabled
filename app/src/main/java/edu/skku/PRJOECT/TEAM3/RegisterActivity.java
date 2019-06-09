@@ -25,7 +25,6 @@ public class RegisterActivity extends BaseActivity{
     private FirebaseAuth mAuth;
     private static final String TAG = "EmailPassword";
 
-    private EditText editText_id;
     private EditText editText_email;
     private EditText editText_password1;
     private EditText editText_password2;
@@ -40,7 +39,6 @@ public class RegisterActivity extends BaseActivity{
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
 
-        editText_id = findViewById(R.id.register_editText_id);
         editText_email = findViewById(R.id.register_editText_email);
         editText_password1 = findViewById(R.id.register_editText_password1);
         editText_password2 = findViewById(R.id.register_editText_password2);
@@ -49,25 +47,12 @@ public class RegisterActivity extends BaseActivity{
         button_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String id = editText_id.getText().toString();
+
                 String email = editText_email.getText().toString();
                 String password1 = editText_password1.getText().toString();
-                String password2 = editText_password2.getText().toString();
 
-                if (id.isEmpty())
-                    alert("아이디를 입력하세요");
-                else if (email.isEmpty())
-                    alert("이메일을 입력하세요");
-                else if (password1.isEmpty())
-                    alert("비밀번호를 입력하세요");
-                else if (password2.isEmpty())
-                    alert("비밀번호 확인을 입력하세요");
-                else if (!password1.equals(password2))
-                    alert("비밀번호가 일치하지 않습니다");
-                else {
-                    createAccount(editText_email.getText().toString(), editText_password1.getText().toString());
-                    //RegisterActivity.super.onBackPressed();
-                }
+                   createAccount(email, password1);
+
             }
         });
     }
@@ -94,29 +79,25 @@ public class RegisterActivity extends BaseActivity{
             editText_email.setError(null);
         }
 
-        String password = editText_password1.getText().toString();
-        if (TextUtils.isEmpty(password)) {
+        String password1 = editText_password1.getText().toString();
+        String password_check = editText_password2.getText().toString();
+        if (TextUtils.isEmpty(password1)) {
             editText_password1.setError("Required.");
             valid = false;
-        } else {
+        } else if(password1.equals(password_check)) {
             editText_password1.setError(null);
+            editText_password2.setError(null);
         }
-
+        else{
+            editText_password1.setError("패스워드가 일치하지 않습니다.");
+            editText_password2.setError("패스워드가 일치하지 않습니다.");
+            valid = false;
+            }
         Log.d(TAG, "valid value in validForm:" + valid);
         return valid;
     }
 
 
-/*    // [START on_start_check_user]
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        updateUI(currentUser);
-    }
-
-    // [END on_start_check_user]*/
     void alert(String title) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(title);

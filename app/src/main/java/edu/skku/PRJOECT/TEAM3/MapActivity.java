@@ -1,6 +1,8 @@
 package edu.skku.PRJOECT.TEAM3;
 
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 
 import android.app.FragmentManager;
@@ -294,6 +296,12 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             Toast.makeText(this, "U Didnt signed in", Toast.LENGTH_LONG).show();
             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
         }
+    }
+
+    //close the application when back button is clicked in MapActivity.
+    @Override
+    public void onBackPressed() {
+        finishAffinity();
     }
 
 }
