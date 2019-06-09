@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -28,6 +30,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -44,12 +47,13 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private int counter;
     private FirebaseAuth mAuth;
     private static final String TAG = "MapActivity";
-    private DatabaseReference mPostReference;
+    private DatabaseReference store_mPostReference, building_mPostReference;
     public GoogleMap gmap;
     public double longitude;
     public double latitude;
     public double altitude;
-    StorePost post = new StorePost();
+    StorePost store_post = new StorePost();
+    BuildingPost building_post = new BuildingPost();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +80,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 startActivity(intent_store);
             }
         });
-        mPostReference = FirebaseDatabase.getInstance().getReference();
+        store_mPostReference = FirebaseDatabase.getInstance().getReference();
+        building_mPostReference = FirebaseDatabase.getInstance().getReference();
 
         FragmentManager fragmentManager = getFragmentManager();
         SupportMapFragment mapFragment = (SupportMapFragment) this.getSupportFragmentManager().findFragmentById(R.id.map);
@@ -86,11 +91,13 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 public void onMapReady(final GoogleMap map) {
                     gmap=map;
                     LatLng SEOUL = new LatLng(37.293918, 126.975426);
-                    MarkerOptions markerOptions = new MarkerOptions();
+
+                    /*MarkerOptions markerOptions = new MarkerOptions();
                     markerOptions.position(SEOUL);
                     markerOptions.title("SKKU");
                     markerOptions.snippet("Welcome to SKKU");
                     map.addMarker(markerOptions);
+                    */
                     map.moveCamera(CameraUpdateFactory.newLatLng(SEOUL));
                     map.animateCamera(CameraUpdateFactory.zoomTo(17));
                 }
@@ -129,50 +136,88 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 }
             }
         });
-        getFirebaseDatabase();
+        building_getFirebaseDatabase();
+        store_getFirebaseDatabase();
     }
 
-    public void getFirebaseDatabase() {//Firebase에서 location을 받아 pin을 찍는다.
+    public void building_getFirebaseDatabase() {//Firebase에서 location을 받아 pin을 찍는다.
+        //counter = 0;
+
         final ValueEventListener postListener = new ValueEventListener() {
             final LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    String key = postSnapshot.getKey();
-                    Log.d("getDB", "Success");
-                    post = postSnapshot.getValue(StorePost.class);
-                    String addr = post.addr;
-                    double lat = post.lat;
-                    double lon = post.lon;
 
-                    LatLng my_loc = new LatLng(lat, lon);
+                        String key = postSnapshot.getKey();
+                        Log.d("Building Key->", key);
 
-                    Marker new_mkr = gmap.addMarker(new MarkerOptions()
-                            .position(my_loc)
-                            .title(key)
-                            .snippet(addr));
-                    //gmap.moveCamera(CameraUpdateFactory.newLatLng(my_loc));
-                    //gmap.animateCamera(CameraUpdateFactory.zoomTo(17));
 
-                    if ( Build.VERSION.SDK_INT >= 23 &&
-                            ContextCompat.checkSelfPermission( getApplicationContext(),
-                                    android.Manifest.permission.ACCESS_FINE_LOCATION ) != PackageManager.PERMISSION_GRANTED ) {
-                        ActivityCompat.requestPermissions( MapActivity.this, new String[]
-                                { android.Manifest.permission.ACCESS_FINE_LOCATION },0 );
-                    }
-                    else{
-                        lm.requestLocationUpdates(LocationManager.GPS_PROVIDER,100,0, gpsLocationListener);
-                        lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,100, 0, networkLocationListener);
-                    }
+                        building_post = postSnapshot.getValue(BuildingPost.class);
+
+                        double lat = building_post.lat;
+                        double lon = building_post.lon;
+
+                        LatLng my_loc = new LatLng(lat, lon);
+                    BitmapDrawable bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.building_location_pin);
+                    Bitmap b=bitmapdraw.getBitmap();
+                    Bitmap smallMarker = Bitmap.createScaledBitmap(b, 150, 150, false);
+                        Marker new_mkr = gmap.addMarker(new MarkerOptions()
+                                .position(my_loc)
+                                .title(key)
+                        .icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
+
                 }
             }
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {}
+        };
+           building_mPostReference.child("building").addValueEventListener(postListener);
+    }
+
+
+    public void store_getFirebaseDatabase() {//Firebase에서 location을 받아 pin을 찍는다.
+        //counter = 0;
+
+        final ValueEventListener postListener = new ValueEventListener() {
+            final LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+
+                    String key = postSnapshot.getKey();
+                    Log.d("Store Key->", key);
+
+
+                        store_post = postSnapshot.getValue(StorePost.class);
+                        String addr = store_post.addr;
+                        double lat = store_post.lat;
+                        double lon = store_post.lon;
+
+                        LatLng my_loc = new LatLng(lat, lon);
+
+                    BitmapDrawable bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.store_location_pin);
+                    Bitmap b=bitmapdraw.getBitmap();
+                    Bitmap smallMarker = Bitmap.createScaledBitmap(b, 150, 150, false);
+                        Marker new_mkr = gmap.addMarker(new MarkerOptions()
+                                .position(my_loc)
+                                .title(key)
+                                .snippet(addr)
+                                .icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
+
+                }
+            }
+
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {}
         };
 
-        mPostReference.child("store").addValueEventListener(postListener);
+        store_mPostReference.child("store").addValueEventListener(postListener);
     }
 
     final LocationListener networkLocationListener = new LocationListener() {
