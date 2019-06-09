@@ -10,6 +10,8 @@ import android.content.Intent;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -207,11 +209,15 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     double lon = post.lon;
 
                     LatLng my_loc = new LatLng(lat, lon);
-
+                    BitmapDrawable bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.restuarant_location_pin);
+                    Bitmap b=bitmapdraw.getBitmap();
+                    Bitmap smallMarker = Bitmap.createScaledBitmap(b, 200, 200, false);
                     Marker new_mkr = gmap.addMarker(new MarkerOptions()
                             .position(my_loc)
                             .title(key)
-                            .snippet(addr));
+                            .snippet(addr)
+                    .icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
+
                     //gmap.moveCamera(CameraUpdateFactory.newLatLng(my_loc));
                     //gmap.animateCamera(CameraUpdateFactory.zoomTo(17));
 
