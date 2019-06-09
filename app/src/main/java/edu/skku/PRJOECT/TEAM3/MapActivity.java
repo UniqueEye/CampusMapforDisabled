@@ -74,25 +74,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         actionBar.setSubtitle("캠퍼스 맵");
         setContentView(R.layout.activity_map);
         mAuth = FirebaseAuth.getInstance();
-
-
-        Button btn_bldg = findViewById(R.id.btn_bldg);      //building으로 넘어가기 위한 임시 버튼
-        btn_bldg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent_building = new Intent(MapActivity.this, BuildingActivity.class);
-                startActivity(intent_building);
-            }
-        });
-
-        Button btn_store = findViewById(R.id.btn_store);    //store로 넘어가기 위한 임시 버튼
-        btn_store.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent_store = new Intent(MapActivity.this, StoreActivity.class);
-                startActivity(intent_store);
-            }
-        });
         store_mPostReference = FirebaseDatabase.getInstance().getReference();
         building_mPostReference = FirebaseDatabase.getInstance().getReference();
 
@@ -104,13 +85,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 public void onMapReady(final GoogleMap map) {
                     gmap=map;
                     LatLng SEOUL = new LatLng(37.293918, 126.975426);
-
-                    /*MarkerOptions markerOptions = new MarkerOptions();
-                    markerOptions.position(SEOUL);
-                    markerOptions.title("SKKU");
-                    markerOptions.snippet("Welcome to SKKU");
-                    map.addMarker(markerOptions);
-                    */
                     map.moveCamera(CameraUpdateFactory.newLatLng(SEOUL));
                     map.animateCamera(CameraUpdateFactory.zoomTo(17));
                     //
@@ -315,12 +289,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         gmap=map;
         LatLng SEOUL = new LatLng(37.293918, 126.975426);
         MarkerOptions markerOptions = new MarkerOptions();
-        /*
-        markerOptions.position(SEOUL);
-        markerOptions.title("SKKU");
-        markerOptions.snippet("Welcome to SKKU");
-        map.addMarker(markerOptions);
-        */
         map.animateCamera(CameraUpdateFactory.newLatLng(SEOUL));
         map.animateCamera(CameraUpdateFactory.zoomTo(17));
 
