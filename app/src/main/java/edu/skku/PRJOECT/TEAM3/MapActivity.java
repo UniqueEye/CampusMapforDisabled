@@ -28,12 +28,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
@@ -61,6 +63,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     BuildingPost building_post = new BuildingPost();
     ArrayList<String> building_id = new ArrayList<>();
     ArrayList<String> store_id = new ArrayList<>();
+    final LatLngBounds skku_campus = new LatLngBounds(
+            new LatLng(37.282266, 126.955033), new LatLng(37.305273, 126.990678));
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +75,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         actionBar.setSubtitle("캠퍼스 맵");
         setContentView(R.layout.activity_map);
         mAuth = FirebaseAuth.getInstance();
+
 
         Button btn_bldg = findViewById(R.id.btn_bldg);      //building으로 넘어가기 위한 임시 버튼
         btn_bldg.setOnClickListener(new View.OnClickListener() {
@@ -107,11 +114,15 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     */
                     map.moveCamera(CameraUpdateFactory.newLatLng(SEOUL));
                     map.animateCamera(CameraUpdateFactory.zoomTo(17));
+                    //
+                    gmap.setLatLngBoundsForCameraTarget(skku_campus);
+                    //
                 }
             });
         } else {
             Toast.makeText(this, "Error - Map Fragment was null!!", Toast.LENGTH_SHORT).show();
         }
+
 
 
         FloatingActionButton button= findViewById(R.id.floatingActionButton);
@@ -181,6 +192,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         };
            building_mPostReference.child("building").addValueEventListener(postListener);
     }
+
     GoogleMap.OnInfoWindowClickListener infoWindowClickListener = new GoogleMap.OnInfoWindowClickListener() {
         @Override
         public void onInfoWindowClick(Marker marker) {
