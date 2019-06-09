@@ -87,7 +87,7 @@ public class EvaluateActivity extends AppCompatActivity {
 
         // Specify the types of place data to return.
         autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME,Place.Field.LAT_LNG, Place.Field.ADDRESS));
-        autocompleteFragment.setLocationBias(RectangularBounds.newInstance(
+        autocompleteFragment.setLocationRestriction(RectangularBounds.newInstance(
                 new LatLng(37,126),
                 new LatLng(38, 127)));
 
