@@ -5,6 +5,8 @@ import java.util.Map;
 
 public class BuildingPost {
     public String name;
+    public double lat;
+    public double lon;
     public int low;
     public int high;
     public int b1;
@@ -19,8 +21,10 @@ public class BuildingPost {
 
     }
 
-    public BuildingPost(String name, int low, int high, int b1, int f1, int f2, int f3, int f4, int f5, int f6) {
+    public BuildingPost(String name, double lat, double lon, int low, int high, int b1, int f1, int f2, int f3, int f4, int f5, int f6) {
         this.name = name;
+        this.lat = lat;
+        this.lon = lon;
         this.low = low;
         this.high = high;
         this.b1 = b1;
@@ -35,6 +39,8 @@ public class BuildingPost {
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
         result.put("name", name);
+        result.put("lat", lat);
+        result.put("lon", lon);
         result.put("low", low);
         result.put("high", high);
         result.put("b1", b1);
