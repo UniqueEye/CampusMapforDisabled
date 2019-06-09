@@ -1,6 +1,9 @@
 package edu.skku.PRJOECT.TEAM3;
 
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 
 import android.app.FragmentManager;
@@ -12,9 +15,12 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -49,7 +55,7 @@ import java.util.Iterator;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback{//sungyoun_브랜치
 
-    private int counter;
+    private int counter = 0;
     private FirebaseAuth mAuth;
     private static final String TAG = "MapActivity";
     private DatabaseReference store_mPostReference, building_mPostReference;
@@ -57,6 +63,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     public double longitude;
     public double latitude;
     public double altitude;
+    public static final int NOTI_ID = 999;
     private Marker currentMarker = null;
     StorePost store_post = new StorePost();
     BuildingPost building_post = new BuildingPost();
@@ -217,7 +224,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
 
     public void store_getFirebaseDatabase() {//Firebase에서 location을 받아 pin을 찍는다.
-        //counter = 0;
 
         final ValueEventListener postListener = new ValueEventListener() {
             final LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
@@ -226,8 +232,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
 
-                    String key = postSnapshot.getKey();
-                    Log.d("Store Key->", key);
+
+                        String key = postSnapshot.getKey();
+                        Log.d("Store Key->", key);
 
 
                         store_post = postSnapshot.getValue(StorePost.class);
@@ -237,25 +244,29 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
                         LatLng my_loc = new LatLng(lat, lon);
 
-                    BitmapDrawable bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.store_location_pin);
-                    Bitmap b=bitmapdraw.getBitmap();
-                    Bitmap smallMarker = Bitmap.createScaledBitmap(b, 150, 150, false);
-                    Marker new_mkr = gmap.addMarker(new MarkerOptions()
+                        BitmapDrawable bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.store_location_pin);
+                        Bitmap b = bitmapdraw.getBitmap();
+                        Bitmap smallMarker = Bitmap.createScaledBitmap(b, 150, 150, false);
+                        Marker new_mkr = gmap.addMarker(new MarkerOptions()
                                 .position(my_loc)
                                 .title(key)
                                 .snippet(addr)
                                 .icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
-                    store_id.add(new_mkr.getId());
+                        store_id.add(new_mkr.getId());
                 }
+
             }
 
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {}
         };
-
+        counter = 0;
         store_mPostReference.child("store").addValueEventListener(postListener);
     }
+
+
+
 
     final LocationListener networkLocationListener = new LocationListener() {
         @Override
