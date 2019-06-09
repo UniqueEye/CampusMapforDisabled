@@ -144,7 +144,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                         .icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
 
                 //gmap.moveCamera(CameraUpdateFactory.newLatLng(my_loc));
-                gmap.animateCamera(CameraUpdateFactory.newLatLngZoom(my_loc, 17));
+                gmap.animateCamera(CameraUpdateFactory.newLatLngZoom(my_loc, 20));
                 //gmap.animateCamera(CameraUpdateFactory.zoomTo(17));
 
                 if ( Build.VERSION.SDK_INT >= 23 &&
