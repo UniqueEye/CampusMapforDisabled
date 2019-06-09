@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.api.model.RectangularBounds;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 import com.google.android.libraries.places.api.Places;
@@ -86,6 +87,10 @@ public class EvaluateActivity extends AppCompatActivity {
 
         // Specify the types of place data to return.
         autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME,Place.Field.LAT_LNG, Place.Field.ADDRESS));
+        autocompleteFragment.setLocationBias(RectangularBounds.newInstance(
+                new LatLng(37,126),
+                new LatLng(38, 127)));
+
 
         ///rating listener
         doorRB.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
