@@ -23,7 +23,7 @@ public class BuildingActivity extends AppCompatActivity {
 
     private DatabaseReference mPostReference;
 
-    String name = "제2공학관";
+    String name;
 
     TextView textView_name;
 
@@ -34,7 +34,9 @@ public class BuildingActivity extends AppCompatActivity {
         actionBar.setSubtitle("건물 정보");
         setContentView(R.layout.activity_building);
 
-        Intent intent_building = getIntent();
+        Intent intent = getIntent();
+        name = intent.getExtras().getString("name");
+
 
         mPostReference = FirebaseDatabase.getInstance().getReference();
         getFirebaseDatabase();

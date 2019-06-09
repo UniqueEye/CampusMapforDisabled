@@ -18,7 +18,7 @@ public class StoreActivity extends AppCompatActivity {
 
     private DatabaseReference mPostReference;
 
-    String name = "알촌";
+    String name;
 
     TextView nameTV;
     TextView addrTV;
@@ -34,7 +34,8 @@ public class StoreActivity extends AppCompatActivity {
         actionBar.setSubtitle("상점 정보");
         setContentView(R.layout.activity_store);
 
-        Intent intent_store = getIntent();
+        Intent intent = getIntent();
+        name = intent.getExtras().getString("name");
 
         nameTV = findViewById(R.id.store_textView_name);
         addrTV = findViewById(R.id.store_textView_address);
