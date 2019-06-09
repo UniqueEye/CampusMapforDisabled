@@ -135,7 +135,13 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             {
                 if(currentMarker != null) currentMarker.remove();
                 Log.d("Current location", "Here");
+
+                LatLng default_location = new LatLng(37.293918, 126.975426);
                 LatLng my_loc = new LatLng(latitude, longitude);
+                Log.d("current location", String.valueOf(latitude) + ": "+String.valueOf(longitude));
+                if(latitude == 0){
+                    gmap.animateCamera(CameraUpdateFactory.newLatLngZoom(default_location, 20));
+                }
                 BitmapDrawable bitmapdraw = (BitmapDrawable)getResources().getDrawable(R.drawable.current_location_pin);
                 Bitmap b=bitmapdraw.getBitmap();
                 Bitmap smallMarker = Bitmap.createScaledBitmap(b, 50, 50, false);
@@ -143,9 +149,15 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                         .position(my_loc)
                         .icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
 
-                //gmap.moveCamera(CameraUpdateFactory.newLatLng(my_loc));
-                gmap.animateCamera(CameraUpdateFactory.newLatLngZoom(my_loc, 20));
-                //gmap.animateCamera(CameraUpdateFactory.zoomTo(17));
+                //Log.d("Counter", String.valueOf(counter));
+                if(latitude == 0) {
+                    gmap.moveCamera(CameraUpdateFactory.newLatLng(default_location));
+                    gmap.animateCamera(CameraUpdateFactory.zoomTo(17));
+                }
+                else {
+                    gmap.animateCamera(CameraUpdateFactory.newLatLngZoom(my_loc, 20));
+                }
+
 
                 if ( Build.VERSION.SDK_INT >= 23 &&
                         ContextCompat.checkSelfPermission( getApplicationContext(),
