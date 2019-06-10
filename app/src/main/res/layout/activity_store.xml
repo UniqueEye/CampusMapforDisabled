@@ -8,9 +8,17 @@
 
     <TextView
         android:id="@+id/store_textView_name"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="128dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginLeft="64dp"
+        android:layout_marginTop="96dp"
+        android:layout_marginEnd="64dp"
+        android:layout_marginRight="64dp"
+        android:ellipsize="marquee"
+        android:gravity="center"
+        android:singleLine="true"
+        android:textColor="@android:color/black"
         android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -18,9 +26,17 @@
 
     <TextView
         android:id="@+id/store_textView_address"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:ellipsize="marquee"
+        android:gravity="center"
+        android:singleLine="true"
+        android:textColor="@android:color/black"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,12 +46,13 @@
         android:id="@+id/store_ratingBar_ovr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="64dp"
         android:isIndicator="true"
         android:stepSize="0.01"
         app:layout_constraintBottom_toTopOf="@+id/tableLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/store_textView_address"
+        app:layout_constraintVertical_bias="0.75" />
 
     <TableLayout
         android:id="@+id/tableLayout"
@@ -56,6 +73,7 @@
                 android:layout_height="50dp"
                 android:gravity="center"
                 android:text="출입구"
+                android:textColor="@android:color/black"
                 android:textSize="24sp" />
 
             <RatingBar
@@ -76,6 +94,7 @@
                 android:layout_height="50dp"
                 android:gravity="center"
                 android:text="공간"
+                android:textColor="@android:color/black"
                 android:textSize="24sp" />
 
             <RatingBar
@@ -96,6 +115,7 @@
                 android:layout_height="50dp"
                 android:gravity="center"
                 android:text="화장실"
+                android:textColor="@android:color/black"
                 android:textSize="24sp" />
 
             <RatingBar

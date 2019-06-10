@@ -155,10 +155,14 @@ public class BuildingActivity extends AppCompatActivity {
                                 case 5:
                                     val[5] = get.f5;
                                     break;
+                                case 6:
+                                    val[6] = get.f6;
+                                    break;
                             }
                         }
 
                         textView_name = findViewById(R.id.building_textView_name);
+                        textView_name.setSelected(true);
                         textView_name.setText(name);
 
                         setFloorVisible(low, high, val);

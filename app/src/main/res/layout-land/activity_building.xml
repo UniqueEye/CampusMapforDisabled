@@ -8,13 +8,277 @@
 
     <TextView
         android:id="@+id/building_textView_name"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="128dp"
-        android:text="제2공학관"
+        android:layout_marginStart="64dp"
+        android:layout_marginLeft="64dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="64dp"
+        android:layout_marginRight="64dp"
+        android:ellipsize="marquee"
+        android:gravity="center"
+        android:singleLine="true"
+        android:textColor="@android:color/black"
         android:textSize="36sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/building_textView_name">
+
+        <TableLayout
+            android:id="@+id/tableLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="64dp">
+
+            <TableRow
+                android:id="@+id/building_row_6F"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="visible">
+
+                <TextView
+                    android:id="@+id/building_textView_6F"
+                    android:layout_width="48dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="6F"
+                    android:textColor="@android:color/black"
+                    android:textSize="24sp" />
+
+                <ImageView
+                    android:id="@+id/building_6F_ramp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    app:srcCompat="@drawable/ramp" />
+
+                <ImageView
+                    android:id="@+id/building_6F_elevator"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    app:srcCompat="@drawable/elevator" />
+
+                <ImageView
+                    android:id="@+id/building_6F_toilet"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    app:srcCompat="@drawable/toilet" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/building_row_5F"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="visible">
+
+                <TextView
+                    android:id="@+id/building_textView_5F"
+                    android:layout_width="48dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="5F"
+                    android:textColor="@android:color/black"
+                    android:textSize="24sp" />
+
+                <ImageView
+                    android:id="@+id/building_5F_ramp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    app:srcCompat="@drawable/ramp" />
+
+                <ImageView
+                    android:id="@+id/building_5F_elevator"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    app:srcCompat="@drawable/elevator" />
+
+                <ImageView
+                    android:id="@+id/building_5F_toilet"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    app:srcCompat="@drawable/toilet" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/building_row_4F"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="visible">
+
+                <TextView
+                    android:id="@+id/building_textView_4F"
+                    android:layout_width="48dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="4F"
+                    android:textColor="@android:color/black"
+                    android:textSize="24sp" />
+
+                <ImageView
+                    android:id="@+id/building_4F_ramp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    app:srcCompat="@drawable/ramp" />
+
+                <ImageView
+                    android:id="@+id/building_4F_elevator"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    app:srcCompat="@drawable/elevator" />
+
+                <ImageView
+                    android:id="@+id/building_4F_toilet"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    app:srcCompat="@drawable/toilet" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/building_row_3F"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="visible">
+
+                <TextView
+                    android:id="@+id/building_textView_3F"
+                    android:layout_width="48dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="3F"
+                    android:textColor="@android:color/black"
+                    android:textSize="24sp" />
+
+                <ImageView
+                    android:id="@+id/building_3F_ramp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    app:srcCompat="@drawable/ramp" />
+
+                <ImageView
+                    android:id="@+id/building_3F_elevator"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    app:srcCompat="@drawable/elevator" />
+
+                <ImageView
+                    android:id="@+id/building_3F_toilet"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    app:srcCompat="@drawable/toilet" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/building_row_2F"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="visible">
+
+                <TextView
+                    android:id="@+id/building_textView_2F"
+                    android:layout_width="48dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="2F"
+                    android:textColor="@android:color/black"
+                    android:textSize="24sp" />
+
+                <ImageView
+                    android:id="@+id/building_2F_ramp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    app:srcCompat="@drawable/ramp" />
+
+                <ImageView
+                    android:id="@+id/building_2F_elevator"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    app:srcCompat="@drawable/elevator" />
+
+                <ImageView
+                    android:id="@+id/building_2F_toilet"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    app:srcCompat="@drawable/toilet" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/building_row_1F"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="visible">
+
+                <TextView
+                    android:id="@+id/building_textView_1F"
+                    android:layout_width="48dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="1F"
+                    android:textColor="@android:color/black"
+                    android:textSize="24sp" />
+
+                <ImageView
+                    android:id="@+id/building_1F_ramp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    app:srcCompat="@drawable/ramp" />
+
+                <ImageView
+                    android:id="@+id/building_1F_elevator"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    app:srcCompat="@drawable/elevator" />
+
+                <ImageView
+                    android:id="@+id/building_1F_toilet"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    app:srcCompat="@drawable/toilet" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/building_row_B1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="visible">
+
+                <TextView
+                    android:id="@+id/building_textView_B1"
+                    android:layout_width="48dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="B1"
+                    android:textColor="@android:color/black"
+                    android:textSize="24sp" />
+
+                <ImageView
+                    android:id="@+id/building_B1_ramp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    app:srcCompat="@drawable/ramp" />
+
+                <ImageView
+                    android:id="@+id/building_B1_elevator"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    app:srcCompat="@drawable/elevator" />
+
+                <ImageView
+                    android:id="@+id/building_B1_toilet"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    app:srcCompat="@drawable/toilet" />
+            </TableRow>
+        </TableLayout>
+    </ScrollView>
 
 </android.support.constraint.ConstraintLayout>
