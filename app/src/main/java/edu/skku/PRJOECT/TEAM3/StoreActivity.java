@@ -38,7 +38,9 @@ public class StoreActivity extends AppCompatActivity {
         name = intent.getExtras().getString("name");
 
         nameTV = findViewById(R.id.store_textView_name);
+        nameTV.setSelected(true);
         addrTV = findViewById(R.id.store_textView_address);
+        addrTV.setSelected(true);
         ovrRB = findViewById(R.id.store_ratingBar_ovr);
         doorRB = findViewById(R.id.store_ratingBar_door);
         spaceRB = findViewById(R.id.store_ratingBar_space);

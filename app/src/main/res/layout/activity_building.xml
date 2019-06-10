@@ -8,9 +8,17 @@
 
     <TextView
         android:id="@+id/building_textView_name"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginLeft="64dp"
+        android:layout_marginTop="96dp"
+        android:layout_marginEnd="64dp"
+        android:layout_marginRight="64dp"
+        android:ellipsize="marquee"
+        android:gravity="center"
+        android:singleLine="true"
+        android:textColor="@android:color/black"
         android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -18,7 +26,9 @@
 
     <ScrollView
         android:layout_width="wrap_content"
-        android:layout_height="384dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="64dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -38,10 +48,11 @@
 
                 <TextView
                     android:id="@+id/building_textView_6F"
-                    android:layout_width="64dp"
+                    android:layout_width="48dp"
                     android:layout_height="match_parent"
-                    android:gravity="center"
+                    android:gravity="center_vertical"
                     android:text="6F"
+                    android:textColor="@android:color/black"
                     android:textSize="24sp" />
 
                 <ImageView
@@ -71,10 +82,11 @@
 
                 <TextView
                     android:id="@+id/building_textView_5F"
-                    android:layout_width="64dp"
+                    android:layout_width="48dp"
                     android:layout_height="match_parent"
-                    android:gravity="center"
+                    android:gravity="center_vertical"
                     android:text="5F"
+                    android:textColor="@android:color/black"
                     android:textSize="24sp" />
 
                 <ImageView
@@ -104,10 +116,11 @@
 
                 <TextView
                     android:id="@+id/building_textView_4F"
-                    android:layout_width="64dp"
+                    android:layout_width="48dp"
                     android:layout_height="match_parent"
-                    android:gravity="center"
+                    android:gravity="center_vertical"
                     android:text="4F"
+                    android:textColor="@android:color/black"
                     android:textSize="24sp" />
 
                 <ImageView
@@ -137,10 +150,11 @@
 
                 <TextView
                     android:id="@+id/building_textView_3F"
-                    android:layout_width="64dp"
+                    android:layout_width="48dp"
                     android:layout_height="match_parent"
-                    android:gravity="center"
+                    android:gravity="center_vertical"
                     android:text="3F"
+                    android:textColor="@android:color/black"
                     android:textSize="24sp" />
 
                 <ImageView
@@ -170,10 +184,11 @@
 
                 <TextView
                     android:id="@+id/building_textView_2F"
-                    android:layout_width="64dp"
+                    android:layout_width="48dp"
                     android:layout_height="match_parent"
-                    android:gravity="center"
+                    android:gravity="center_vertical"
                     android:text="2F"
+                    android:textColor="@android:color/black"
                     android:textSize="24sp" />
 
                 <ImageView
@@ -203,10 +218,11 @@
 
                 <TextView
                     android:id="@+id/building_textView_1F"
-                    android:layout_width="64dp"
+                    android:layout_width="48dp"
                     android:layout_height="match_parent"
-                    android:gravity="center"
+                    android:gravity="center_vertical"
                     android:text="1F"
+                    android:textColor="@android:color/black"
                     android:textSize="24sp" />
 
                 <ImageView
@@ -236,10 +252,11 @@
 
                 <TextView
                     android:id="@+id/building_textView_B1"
-                    android:layout_width="64dp"
+                    android:layout_width="48dp"
                     android:layout_height="match_parent"
-                    android:gravity="center"
+                    android:gravity="center_vertical"
                     android:text="B1"
+                    android:textColor="@android:color/black"
                     android:textSize="24sp" />
 
                 <ImageView

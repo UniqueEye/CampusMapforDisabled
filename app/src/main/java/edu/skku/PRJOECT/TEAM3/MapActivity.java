@@ -231,7 +231,7 @@ public class MapActivity extends AppCompatActivity implements GoogleMap.OnMyLoca
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {}
         };
-        counter = 0;
+        //counter = 0;
         store_mPostReference.child("store").addValueEventListener(postListener);
     }
 

@@ -81,7 +81,9 @@ public class EvaluateActivity extends AppCompatActivity {
         spaceRB = findViewById(R.id.evaluate_ratingBar_space);
         toiletRB = findViewById(R.id.evaluate_ratingBar_toilet);
         textView_name = findViewById(R.id.evaluate_textView_name);
+        textView_name.setSelected(true);
         textView_addr = findViewById(R.id.evaluate_textView_address);
+        textView_addr.setSelected(true);
 
         mPostReference = FirebaseDatabase.getInstance().getReference();
 
