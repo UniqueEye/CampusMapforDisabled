@@ -57,7 +57,6 @@ import java.util.Iterator;
 public class MapActivity extends AppCompatActivity implements GoogleMap.OnMyLocationButtonClickListener,
         GoogleMap.OnMyLocationClickListener,OnMapReadyCallback{//sungyoun_브랜치
 
-    private int counter = 0;
     private FirebaseAuth mAuth;
     private static final String TAG = "MapActivity";
     private DatabaseReference store_mPostReference, building_mPostReference;
@@ -65,8 +64,6 @@ public class MapActivity extends AppCompatActivity implements GoogleMap.OnMyLoca
     public double longitude;
     public double latitude;
     public double altitude;
-    public static final int NOTI_ID = 999;
-    private Marker currentMarker = null;
     StorePost store_post = new StorePost();
     BuildingPost building_post = new BuildingPost();
     ArrayList<String> building_id = new ArrayList<>();
@@ -107,8 +104,6 @@ public class MapActivity extends AppCompatActivity implements GoogleMap.OnMyLoca
                     gmap.setLatLngBoundsForCameraTarget(skku_campus);
                     gmap.setMinZoomPreference(13.0f);
                     gmap.setMaxZoomPreference(17.0f);
-
-                    //
                 }
             });
         } else {
@@ -125,7 +120,7 @@ public class MapActivity extends AppCompatActivity implements GoogleMap.OnMyLoca
         // position on right bottom
         rlp.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0);
         rlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
-        rlp.setMargins(0, 0, 150, 150);
+        rlp.setMargins(0, 0, 150, 200);
 
 
         building_getFirebaseDatabase();
@@ -244,6 +239,7 @@ public class MapActivity extends AppCompatActivity implements GoogleMap.OnMyLoca
         @Override
         public void onLocationChanged(Location location) {
             String provider = location.getProvider();
+            longitude = location.getLongitude();
             longitude = location.getLongitude();
             latitude = location.getLatitude();
             altitude = location.getAltitude();
