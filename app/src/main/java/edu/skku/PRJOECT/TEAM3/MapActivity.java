@@ -249,6 +249,7 @@ public class MapActivity extends AppCompatActivity implements GoogleMap.OnMyLoca
         public void onProviderEnabled(String provider) {}
         public void onProviderDisabled(String provider) {}
     };
+          
     @Override
     public void onMapReady(final GoogleMap map) {
         gmap=map;
@@ -269,8 +270,6 @@ public class MapActivity extends AppCompatActivity implements GoogleMap.OnMyLoca
         //gmap.setMyLocationEnabled(true);
         gmap.setOnMyLocationButtonClickListener(this);
         gmap.setOnMyLocationClickListener(this);
-
-
     }
 
     @Override
