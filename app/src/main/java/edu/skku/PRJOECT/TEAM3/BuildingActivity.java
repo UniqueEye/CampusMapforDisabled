@@ -101,6 +101,14 @@ public class BuildingActivity extends AppCompatActivity {
                             (ImageView)findViewById(R.id.building_6F_toilet),
                             val[6]);
                     break;
+                case 7:
+                    findViewById(R.id.building_row_7F).setVisibility(View.VISIBLE);
+                    setIconVisible(
+                            (ImageView)findViewById(R.id.building_7F_ramp),
+                            (ImageView)findViewById(R.id.building_7F_elevator),
+                            (ImageView)findViewById(R.id.building_7F_toilet),
+                            val[7]);
+                    break;
             }
         }
     }
@@ -157,6 +165,9 @@ public class BuildingActivity extends AppCompatActivity {
                                     break;
                                 case 6:
                                     val[6] = get.f6;
+                                    break;
+                                case 7:
+                                    val[7] = get.f7;
                                     break;
                             }
                         }

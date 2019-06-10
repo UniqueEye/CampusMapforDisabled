@@ -16,12 +16,13 @@ public class BuildingPost {
     public int f4;
     public int f5;
     public int f6;
+    public int f7;
 
     public BuildingPost() {
 
     }
 
-    public BuildingPost(String name, double lat, double lon, int low, int high, int b1, int f1, int f2, int f3, int f4, int f5, int f6) {
+    public BuildingPost(String name, double lat, double lon, int low, int high, int b1, int f1, int f2, int f3, int f4, int f5, int f6, int f7) {
         this.name = name;
         this.lat = lat;
         this.lon = lon;
@@ -34,6 +35,7 @@ public class BuildingPost {
         this.f4 = f4;
         this.f5 = f5;
         this.f6 = f6;
+        this.f7 = f7;
     }
 
     public Map<String, Object> toMap() {
@@ -50,6 +52,7 @@ public class BuildingPost {
         result.put("f4", f4);
         result.put("f5", f5);
         result.put("f6", f6);
+        result.put("f7", f7);
 
         return result;
     }

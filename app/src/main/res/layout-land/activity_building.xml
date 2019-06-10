@@ -42,6 +42,41 @@
             android:layout_marginBottom="64dp">
 
             <TableRow
+                android:id="@+id/building_row_7F"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="visible"
+                tools:visibility="gone">
+
+                <TextView
+                    android:id="@+id/building_textView_7F"
+                    android:layout_width="48dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="7F"
+                    android:textColor="@android:color/black"
+                    android:textSize="24sp" />
+
+                <ImageView
+                    android:id="@+id/building_7F_ramp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    app:srcCompat="@drawable/ramp" />
+
+                <ImageView
+                    android:id="@+id/building_7F_elevator"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    app:srcCompat="@drawable/elevator" />
+
+                <ImageView
+                    android:id="@+id/building_7F_toilet"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    app:srcCompat="@drawable/toilet" />
+            </TableRow>
+
+            <TableRow
                 android:id="@+id/building_row_6F"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
