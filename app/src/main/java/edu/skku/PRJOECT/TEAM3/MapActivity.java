@@ -122,6 +122,7 @@ public class MapActivity extends AppCompatActivity implements GoogleMap.OnMyLoca
         rlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
         rlp.setMargins(0, 0, 150, 200);
 
+
         building_getFirebaseDatabase();
         store_getFirebaseDatabase();
     }
@@ -230,7 +231,7 @@ public class MapActivity extends AppCompatActivity implements GoogleMap.OnMyLoca
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {}
         };
-        //counter = 0;
+        counter = 0;
         store_mPostReference.child("store").addValueEventListener(postListener);
     }
 
@@ -262,7 +263,6 @@ public class MapActivity extends AppCompatActivity implements GoogleMap.OnMyLoca
         public void onProviderEnabled(String provider) {}
         public void onProviderDisabled(String provider) {}
     };
-          
     @Override
     public void onMapReady(final GoogleMap map) {
         gmap=map;
@@ -281,8 +281,10 @@ public class MapActivity extends AppCompatActivity implements GoogleMap.OnMyLoca
 
 
         //gmap.setMyLocationEnabled(true);
-        gmap.setOnMyLocationButtonClickListener(this);
-        gmap.setOnMyLocationClickListener(this);
+      //  gmap.setOnMyLocationButtonClickListener(this);
+      //  gmap.setOnMyLocationClickListener(this);
+
+
     }
 
     @Override
