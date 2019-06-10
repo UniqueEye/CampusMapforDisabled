@@ -104,7 +104,6 @@ public class MapActivity extends AppCompatActivity implements GoogleMap.OnMyLoca
                     gmap.setLatLngBoundsForCameraTarget(skku_campus);
                     gmap.setMinZoomPreference(13.0f);
                     gmap.setMaxZoomPreference(17.0f);
-                    //
                 }
             });
         } else {
@@ -239,6 +238,7 @@ public class MapActivity extends AppCompatActivity implements GoogleMap.OnMyLoca
         @Override
         public void onLocationChanged(Location location) {
             String provider = location.getProvider();
+            longitude = location.getLongitude();
             longitude = location.getLongitude();
             latitude = location.getLatitude();
             altitude = location.getAltitude();
