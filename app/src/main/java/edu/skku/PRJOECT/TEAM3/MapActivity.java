@@ -115,6 +115,7 @@ public class MapActivity extends AppCompatActivity implements GoogleMap.OnMyLoca
             Toast.makeText(this, "Error - Map Fragment was null!!", Toast.LENGTH_SHORT).show();
         }
 
+
         //get reference to my location icon
         View locationButton = ((View) mapFragment.getView().findViewById(Integer.parseInt("1")).
                 getParent()).findViewById(Integer.parseInt("2"));
