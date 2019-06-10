@@ -113,6 +113,7 @@ public class MapActivity extends AppCompatActivity implements GoogleMap.OnMyLoca
             Toast.makeText(this, "Error - Map Fragment was null!!", Toast.LENGTH_SHORT).show();
         }
 
+
         FloatingActionButton button= findViewById(R.id.floatingActionButton);
         final LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
         button.setOnClickListener(new View.OnClickListener()
@@ -196,7 +197,6 @@ public class MapActivity extends AppCompatActivity implements GoogleMap.OnMyLoca
         };
            building_mPostReference.child("building").addValueEventListener(postListener);
     }
-
     GoogleMap.OnInfoWindowClickListener infoWindowClickListener = new GoogleMap.OnInfoWindowClickListener() {
         @Override
         public void onInfoWindowClick(Marker marker) {
