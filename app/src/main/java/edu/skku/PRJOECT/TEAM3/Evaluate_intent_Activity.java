@@ -96,7 +96,9 @@ public class Evaluate_intent_Activity extends AppCompatActivity {
         spaceRB = findViewById(R.id.evaluate_ratingBar_space);
         toiletRB = findViewById(R.id.evaluate_ratingBar_toilet);
         textView_name = findViewById(R.id.evaluate_textView_name);
+        textView_name.setSelected(true);
         textView_addr = findViewById(R.id.evaluate_textView_address);
+        textView_addr.setSelected(true);
         textView_name.setText(post.name);
         textView_addr.setText(post.addr);
         mPostReference = FirebaseDatabase.getInstance().getReference();
