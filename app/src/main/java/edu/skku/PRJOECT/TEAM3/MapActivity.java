@@ -113,7 +113,6 @@ public class MapActivity extends AppCompatActivity implements GoogleMap.OnMyLoca
             Toast.makeText(this, "Error - Map Fragment was null!!", Toast.LENGTH_SHORT).show();
         }
 
-
         FloatingActionButton button= findViewById(R.id.floatingActionButton);
         final LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
         button.setOnClickListener(new View.OnClickListener()
@@ -311,7 +310,8 @@ public class MapActivity extends AppCompatActivity implements GoogleMap.OnMyLoca
         }
         LatLng SEOUL = new LatLng(37.293918, 126.975426);
         MarkerOptions markerOptions = new MarkerOptions();
-        map.animateCamera(CameraUpdateFactory.newLatLng(SEOUL));
+
+        map.moveCamera(CameraUpdateFactory.newLatLng(SEOUL));
         map.animateCamera(CameraUpdateFactory.zoomTo(17));
 
 
