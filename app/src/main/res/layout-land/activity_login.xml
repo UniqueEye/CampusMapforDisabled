@@ -21,7 +21,7 @@
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="아이디"
+        android:hint="이메일"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/login_editText_password"
         app:layout_constraintEnd_toEndOf="parent"
