@@ -1,10 +1,11 @@
 package edu.skku.PRJOECT.TEAM3;
 
 
-
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -52,7 +53,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class MapActivity extends AppCompatActivity implements OnMapReadyCallback{//sungyoun_브랜치
+public class MapActivity extends AppCompatActivity implements GoogleMap.OnMyLocationButtonClickListener,
+        GoogleMap.OnMyLocationClickListener,OnMapReadyCallback{//sungyoun_브랜치
 
     private int counter = 0;
     private FirebaseAuth mAuth;
@@ -90,9 +92,16 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 @Override
                 public void onMapReady(final GoogleMap map) {
                     gmap=map;
+
+                    if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION)
+                            == PackageManager.PERMISSION_GRANTED) {
+                        gmap.setMyLocationEnabled(true);
+                    } else {
+                        // Show rationale and request permission.
+                    }
                     LatLng SEOUL = new LatLng(37.293918, 126.975426);
-                    map.moveCamera(CameraUpdateFactory.newLatLng(SEOUL));
-                    map.animateCamera(CameraUpdateFactory.zoomTo(17));
+                    gmap.moveCamera(CameraUpdateFactory.newLatLng(SEOUL));
+                    gmap.animateCamera(CameraUpdateFactory.zoomTo(17));
                     //
                     gmap.setLatLngBoundsForCameraTarget(skku_campus);
                     gmap.setMinZoomPreference(13.0f);
@@ -103,7 +112,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         } else {
             Toast.makeText(this, "Error - Map Fragment was null!!", Toast.LENGTH_SHORT).show();
         }
-
 
 
         FloatingActionButton button= findViewById(R.id.floatingActionButton);
@@ -189,7 +197,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         };
            building_mPostReference.child("building").addValueEventListener(postListener);
     }
-
     GoogleMap.OnInfoWindowClickListener infoWindowClickListener = new GoogleMap.OnInfoWindowClickListener() {
         @Override
         public void onInfoWindowClick(Marker marker) {
@@ -223,6 +230,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
 
     public void store_getFirebaseDatabase() {//Firebase에서 location을 받아 pin을 찍는다.
+        //counter = 0;
 
         final ValueEventListener postListener = new ValueEventListener() {
             final LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
@@ -253,7 +261,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                                 .icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
                         store_id.add(new_mkr.getId());
                 }
-
             }
 
 
@@ -263,9 +270,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         counter = 0;
         store_mPostReference.child("store").addValueEventListener(postListener);
     }
-
-
-
 
     final LocationListener networkLocationListener = new LocationListener() {
         @Override
@@ -297,12 +301,41 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(final GoogleMap map) {
         gmap=map;
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            gmap.setMyLocationEnabled(true);
+        } else {
+            // Show rationale and request permission.
+        }
         LatLng SEOUL = new LatLng(37.293918, 126.975426);
         MarkerOptions markerOptions = new MarkerOptions();
-        map.animateCamera(CameraUpdateFactory.newLatLng(SEOUL));
+
+        map.moveCamera(CameraUpdateFactory.newLatLng(SEOUL));
         map.animateCamera(CameraUpdateFactory.zoomTo(17));
 
+
+        //gmap.setMyLocationEnabled(true);
+        gmap.setOnMyLocationButtonClickListener(this);
+        gmap.setOnMyLocationClickListener(this);
+
+
     }
+
+    @Override
+    public void onMyLocationClick(@NonNull Location location) {
+        Toast.makeText(this, "Current location:\n" + location, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public boolean onMyLocationButtonClick() {
+        Toast.makeText(this, "MyLocation button clicked", Toast.LENGTH_SHORT).show();
+        // Return false so that we don't consume the event and the default behavior still occurs
+        // (the camera animates to the user's current position).
+        return false;
+    }
+
+
 
 
     @Override
