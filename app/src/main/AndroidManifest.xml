@@ -31,7 +31,9 @@
         <activity android:name=".EvaluateActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".MapActivity" />
+        <activity android:name=".Evaluate_intent_Activity" />
         <activity android:name=".LoginActivity">
+
 
         </activity>
 
