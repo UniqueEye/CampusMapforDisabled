@@ -113,53 +113,6 @@ public class MapActivity extends AppCompatActivity implements GoogleMap.OnMyLoca
             Toast.makeText(this, "Error - Map Fragment was null!!", Toast.LENGTH_SHORT).show();
         }
 
-/*
-        FloatingActionButton button= findViewById(R.id.floatingActionButton);
-        final LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
-        button.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                if(currentMarker != null) currentMarker.remove();
-                Log.d("Current location", "Here");
-
-                LatLng default_location = new LatLng(37.293918, 126.975426);
-                LatLng my_loc = new LatLng(latitude, longitude);
-                Log.d("current location", String.valueOf(latitude) + ": "+String.valueOf(longitude));
-                if(latitude == 0){
-                    gmap.animateCamera(CameraUpdateFactory.newLatLngZoom(default_location, 20));
-                }
-                BitmapDrawable bitmapdraw = (BitmapDrawable)getResources().getDrawable(R.drawable.current_location_pin);
-                Bitmap b=bitmapdraw.getBitmap();
-                Bitmap smallMarker = Bitmap.createScaledBitmap(b, 50, 50, false);
-                currentMarker = gmap.addMarker(new MarkerOptions()
-                        .position(my_loc)
-                        .icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
-
-                //Log.d("Counter", String.valueOf(counter));
-                if(latitude == 0) {
-                    gmap.moveCamera(CameraUpdateFactory.newLatLng(default_location));
-                    gmap.animateCamera(CameraUpdateFactory.zoomTo(17));
-                }
-                else {
-                    gmap.animateCamera(CameraUpdateFactory.newLatLngZoom(my_loc, 20));
-                }
-
-
-                if ( Build.VERSION.SDK_INT >= 23 &&
-                        ContextCompat.checkSelfPermission( getApplicationContext(),
-                                android.Manifest.permission.ACCESS_FINE_LOCATION ) != PackageManager.PERMISSION_GRANTED ) {
-                    ActivityCompat.requestPermissions( MapActivity.this, new String[]
-                            { android.Manifest.permission.ACCESS_FINE_LOCATION },0 );
-                }
-                else{
-                    lm.requestLocationUpdates(LocationManager.GPS_PROVIDER,100,0, gpsLocationListener);
-                    lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,100, 0, networkLocationListener);
-                }
-            }
-        });
-        */
         building_getFirebaseDatabase();
         store_getFirebaseDatabase();
     }
@@ -299,6 +252,7 @@ public class MapActivity extends AppCompatActivity implements GoogleMap.OnMyLoca
         public void onProviderEnabled(String provider) {}
         public void onProviderDisabled(String provider) {}
     };
+          
     @Override
     public void onMapReady(final GoogleMap map) {
         gmap=map;
@@ -319,8 +273,6 @@ public class MapActivity extends AppCompatActivity implements GoogleMap.OnMyLoca
         //gmap.setMyLocationEnabled(true);
         gmap.setOnMyLocationButtonClickListener(this);
         gmap.setOnMyLocationClickListener(this);
-
-
     }
 
     @Override
