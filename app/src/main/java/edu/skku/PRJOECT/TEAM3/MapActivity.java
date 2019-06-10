@@ -113,7 +113,7 @@ public class MapActivity extends AppCompatActivity implements GoogleMap.OnMyLoca
             Toast.makeText(this, "Error - Map Fragment was null!!", Toast.LENGTH_SHORT).show();
         }
 
-
+/*
         FloatingActionButton button= findViewById(R.id.floatingActionButton);
         final LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
         button.setOnClickListener(new View.OnClickListener()
@@ -159,6 +159,7 @@ public class MapActivity extends AppCompatActivity implements GoogleMap.OnMyLoca
                 }
             }
         });
+        */
         building_getFirebaseDatabase();
         store_getFirebaseDatabase();
     }
@@ -267,7 +268,7 @@ public class MapActivity extends AppCompatActivity implements GoogleMap.OnMyLoca
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {}
         };
-        counter = 0;
+        //counter = 0;
         store_mPostReference.child("store").addValueEventListener(postListener);
     }
 
