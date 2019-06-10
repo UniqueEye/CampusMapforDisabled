@@ -177,7 +177,7 @@ public class MapActivity extends AppCompatActivity implements GoogleMap.OnMyLoca
                     Intent building_intent = new Intent(MapActivity.this, BuildingActivity.class);
                     building_intent.putExtra("name", marker.getTitle());
                     startActivity(building_intent);
-                    Toast.makeText(MapActivity.this, "Building Marker ID : "+markerId, Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(MapActivity.this, "Building Marker ID : "+markerId, Toast.LENGTH_SHORT).show();
                 }
             }
             if(ack == 0){
@@ -186,7 +186,7 @@ public class MapActivity extends AppCompatActivity implements GoogleMap.OnMyLoca
                 Intent store_intent = new Intent(MapActivity.this, StoreActivity.class);
                 store_intent.putExtra("name", marker.getTitle());
                 startActivity(store_intent);
-                Toast.makeText(MapActivity.this, "Store Marker ID : "+markerId, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MapActivity.this, "Store Marker ID : "+markerId, Toast.LENGTH_SHORT).show();
             }
         }
     };
@@ -289,12 +289,12 @@ public class MapActivity extends AppCompatActivity implements GoogleMap.OnMyLoca
 
     @Override
     public void onMyLocationClick(@NonNull Location location) {
-        Toast.makeText(this, "Current location:\n" + location, Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "Current location:\n" + location, Toast.LENGTH_LONG).show();
     }
 
     @Override
     public boolean onMyLocationButtonClick() {
-        Toast.makeText(this, "MyLocation button clicked", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "MyLocation button clicked", Toast.LENGTH_SHORT).show();
         // Return false so that we don't consume the event and the default behavior still occurs
         // (the camera animates to the user's current position).
         return false;
