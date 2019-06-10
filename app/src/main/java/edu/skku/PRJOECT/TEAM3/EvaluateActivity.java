@@ -92,8 +92,7 @@ public class EvaluateActivity extends AppCompatActivity {
         // Specify the types of place data to return.
         autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME,Place.Field.LAT_LNG, Place.Field.ADDRESS));
         autocompleteFragment.setLocationRestriction(RectangularBounds.newInstance(
-                new LatLng(37,126),
-                new LatLng(38, 127)));
+                new LatLng(37.282266, 126.955033), new LatLng(37.305273, 126.990678)));
 
 
         ///rating listener

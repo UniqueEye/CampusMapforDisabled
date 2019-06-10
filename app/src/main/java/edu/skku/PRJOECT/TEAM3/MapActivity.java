@@ -107,6 +107,7 @@ public class MapActivity extends AppCompatActivity implements GoogleMap.OnMyLoca
                     gmap.setLatLngBoundsForCameraTarget(skku_campus);
                     gmap.setMinZoomPreference(13.0f);
                     gmap.setMaxZoomPreference(17.0f);
+
                     //
                 }
             });
@@ -125,6 +126,7 @@ public class MapActivity extends AppCompatActivity implements GoogleMap.OnMyLoca
         rlp.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0);
         rlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
         rlp.setMargins(0, 0, 150, 150);
+
 
         building_getFirebaseDatabase();
         store_getFirebaseDatabase();
@@ -234,7 +236,7 @@ public class MapActivity extends AppCompatActivity implements GoogleMap.OnMyLoca
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {}
         };
-        //counter = 0;
+        counter = 0;
         store_mPostReference.child("store").addValueEventListener(postListener);
     }
 
@@ -265,7 +267,6 @@ public class MapActivity extends AppCompatActivity implements GoogleMap.OnMyLoca
         public void onProviderEnabled(String provider) {}
         public void onProviderDisabled(String provider) {}
     };
-          
     @Override
     public void onMapReady(final GoogleMap map) {
         gmap=map;
@@ -284,8 +285,10 @@ public class MapActivity extends AppCompatActivity implements GoogleMap.OnMyLoca
 
 
         //gmap.setMyLocationEnabled(true);
-        gmap.setOnMyLocationButtonClickListener(this);
-        gmap.setOnMyLocationClickListener(this);
+      //  gmap.setOnMyLocationButtonClickListener(this);
+      //  gmap.setOnMyLocationClickListener(this);
+
+
     }
 
     @Override
