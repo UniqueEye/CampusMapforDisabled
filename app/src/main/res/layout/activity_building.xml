@@ -44,8 +44,7 @@
                 android:id="@+id/building_row_7F"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:visibility="visible"
-                tools:visibility="gone">
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/building_textView_7F"

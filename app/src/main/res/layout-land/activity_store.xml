@@ -47,6 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:isIndicator="true"
+        android:stepSize="0.01"
         app:layout_constraintBottom_toTopOf="@+id/tableLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -83,6 +84,7 @@
                 android:isIndicator="true"
                 android:scaleX="0.8"
                 android:scaleY="0.8"
+                android:stepSize="0.01"
                 android:transformPivotX="0dp"
                 android:transformPivotY="0dp" />
         </TableRow>
@@ -107,6 +109,7 @@
                 android:isIndicator="true"
                 android:scaleX="0.8"
                 android:scaleY="0.8"
+                android:stepSize="0.01"
                 android:transformPivotX="0dp"
                 android:transformPivotY="0dp" />
         </TableRow>
@@ -131,6 +134,7 @@
                 android:isIndicator="true"
                 android:scaleX="0.8"
                 android:scaleY="0.8"
+                android:stepSize="0.01"
                 android:transformPivotX="0dp"
                 android:transformPivotY="0dp" />
         </TableRow>

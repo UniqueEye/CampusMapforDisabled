@@ -45,8 +45,7 @@
                 android:id="@+id/building_row_7F"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:visibility="visible"
-                tools:visibility="gone">
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/building_textView_7F"
@@ -80,8 +79,7 @@
                 android:id="@+id/building_row_6F"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:visibility="visible"
-                tools:visibility="gone">
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/building_textView_6F"
@@ -115,8 +113,7 @@
                 android:id="@+id/building_row_5F"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:visibility="visible"
-                tools:visibility="gone">
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/building_textView_5F"
@@ -150,8 +147,7 @@
                 android:id="@+id/building_row_4F"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:visibility="visible"
-                tools:visibility="gone">
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/building_textView_4F"
@@ -185,8 +181,7 @@
                 android:id="@+id/building_row_3F"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:visibility="visible"
-                tools:visibility="gone">
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/building_textView_3F"
@@ -220,8 +215,7 @@
                 android:id="@+id/building_row_2F"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:visibility="visible"
-                tools:visibility="gone">
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/building_textView_2F"
@@ -255,8 +249,7 @@
                 android:id="@+id/building_row_1F"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:visibility="visible"
-                tools:visibility="gone">
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/building_textView_1F"
@@ -290,8 +283,7 @@
                 android:id="@+id/building_row_B1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:visibility="visible"
-                tools:visibility="gone">
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/building_textView_B1"

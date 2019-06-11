@@ -181,11 +181,33 @@ public class EvaluateActivity extends AppCompatActivity {
             }
         });*/
 
+        if (savedInstanceState != null) {
+            place_name = savedInstanceState.getString("name");
+            addr = savedInstanceState.getString("addr");
+            textView_name.setText(place_name);
+            textView_addr.setText(addr);
 
-
-
-
+            post.name = savedInstanceState.getString("post_name");
+            post.addr = savedInstanceState.getString("post_addr");
+            post.lat = savedInstanceState.getDouble("post_lat");
+            post.lon = savedInstanceState.getDouble("post_lon");
+        }
     } //onCreate
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        place_name = textView_name.getText().toString();
+        addr = textView_addr.getText().toString();
+        outState.putString("name", place_name);
+        outState.putString("addr", addr);
+        if (true) {
+            outState.putString("post_name", post.name);
+            outState.putString("post_addr", post.addr);
+            outState.putDouble("post_lat", post.lat);
+            outState.putDouble("post_lon", post.lon);
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

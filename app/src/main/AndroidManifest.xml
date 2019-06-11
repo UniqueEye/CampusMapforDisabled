@@ -6,9 +6,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/skku_logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/skku_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <meta-data
@@ -26,16 +26,21 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".BuildingActivity"></activity>
-        <activity android:name=".StoreActivity" />
-        <activity android:name=".EvaluateActivity" />
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".MapActivity" />
-        <activity android:name=".Evaluate_intent_Activity" />
-        <activity android:name=".LoginActivity">
-
-
-        </activity>
+        <activity
+            android:name=".BuildingActivity" />
+        <activity
+            android:name=".StoreActivity" />
+        <activity
+            android:name=".EvaluateActivity" />
+        <activity
+            android:name=".RegisterActivity" />
+        <activity
+            android:name=".MapActivity"
+            android:configChanges="screenSize|orientation" />
+        <activity
+            android:name=".Evaluate_intent_Activity" />
+        <activity
+            android:name=".LoginActivity" />
 
         <!-- ADD THIS: Specify the Google Play services version number -->
         <meta-data

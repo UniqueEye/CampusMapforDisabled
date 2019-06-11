@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
@@ -125,6 +126,11 @@ public class MapActivity extends AppCompatActivity implements GoogleMap.OnMyLoca
 
         building_getFirebaseDatabase();
         store_getFirebaseDatabase();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
     }
 
     public void building_getFirebaseDatabase() {//Firebase에서 location을 받아 pin을 찍는다.
