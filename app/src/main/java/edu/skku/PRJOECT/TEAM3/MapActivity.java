@@ -108,7 +108,7 @@ public class MapActivity extends AppCompatActivity implements GoogleMap.OnMyLoca
                 }
             });
         } else {
-            Toast.makeText(this, "Error - Map Fragment was null!!", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "Error - Map Fragment was null!!", Toast.LENGTH_SHORT).show();
         }
 
 
@@ -287,8 +287,8 @@ public class MapActivity extends AppCompatActivity implements GoogleMap.OnMyLoca
 
 
         //gmap.setMyLocationEnabled(true);
-      //  gmap.setOnMyLocationButtonClickListener(this);
-      //  gmap.setOnMyLocationClickListener(this);
+        gmap.setOnMyLocationButtonClickListener(this);
+        gmap.setOnMyLocationClickListener(this);
 
 
     }
@@ -338,10 +338,10 @@ public class MapActivity extends AppCompatActivity implements GoogleMap.OnMyLoca
     //Change UI according to user data.
     public void updateUI(FirebaseUser account) {
         if (account != null) {
-            Toast.makeText(this, "U Signed In successfully", Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, "U Signed In successfully", Toast.LENGTH_LONG).show();
             startActivity(new Intent(this, MapActivity.class));
         } else {
-            Toast.makeText(this, "U Didnt signed in", Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, "U Didnt signed in", Toast.LENGTH_LONG).show();
             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
         }
     }
