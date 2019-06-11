@@ -287,8 +287,8 @@ public class MapActivity extends AppCompatActivity implements GoogleMap.OnMyLoca
 
 
         //gmap.setMyLocationEnabled(true);
-      //  gmap.setOnMyLocationButtonClickListener(this);
-      //  gmap.setOnMyLocationClickListener(this);
+        gmap.setOnMyLocationButtonClickListener(this);
+        gmap.setOnMyLocationClickListener(this);
 
 
     }
