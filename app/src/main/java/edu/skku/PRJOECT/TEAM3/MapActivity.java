@@ -105,6 +105,7 @@ public class MapActivity extends AppCompatActivity implements GoogleMap.OnMyLoca
                     gmap.setLatLngBoundsForCameraTarget(skku_campus);
                     gmap.setMinZoomPreference(13.0f);
                     gmap.setMaxZoomPreference(17.0f);
+
                 }
             });
         } else {
