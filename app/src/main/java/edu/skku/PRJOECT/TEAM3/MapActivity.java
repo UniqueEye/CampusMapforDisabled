@@ -299,7 +299,6 @@ public class MapActivity extends AppCompatActivity implements GoogleMap.OnMyLoca
         gmap.setOnMyLocationClickListener(this);
 
 
-
     }
 
     @Override
