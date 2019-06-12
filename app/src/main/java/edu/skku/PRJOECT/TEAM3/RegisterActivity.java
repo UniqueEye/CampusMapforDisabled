@@ -85,8 +85,14 @@ public class RegisterActivity extends BaseActivity{
             editText_password1.setError("Required.");
             valid = false;
         } else if(password1.equals(password_check)) {
-            editText_password1.setError(null);
-            editText_password2.setError(null);
+            if(password1.length()<8) {
+                editText_password1.setError("패스워드 최소길이는 8자입니다.");
+                editText_password2.setError("패스워드 최소길이는 8자입니다.");
+            }
+            else {
+                editText_password1.setError(null);
+                editText_password2.setError(null);
+            }
         }
         else{
             editText_password1.setError("패스워드가 일치하지 않습니다.");
