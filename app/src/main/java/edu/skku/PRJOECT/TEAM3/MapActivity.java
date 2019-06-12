@@ -90,7 +90,7 @@ public class MapActivity extends AppCompatActivity implements GoogleMap.OnMyLoca
             ActivityCompat.requestPermissions( MapActivity.this, new String[] {  android.Manifest.permission.ACCESS_FINE_LOCATION  },0 );
         }
         else {
-            Toast.makeText(MapActivity.this, "Location is ready!", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(MapActivity.this, "Location is ready!", Toast.LENGTH_SHORT).show();
         }
 
         FragmentManager fragmentManager = getFragmentManager();
