@@ -20,6 +20,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
@@ -84,6 +85,14 @@ public class MapActivity extends AppCompatActivity implements GoogleMap.OnMyLoca
         store_mPostReference = FirebaseDatabase.getInstance().getReference();
         building_mPostReference = FirebaseDatabase.getInstance().getReference();
 
+        if ( Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission( getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION ) != PackageManager.PERMISSION_GRANTED )
+        {
+            ActivityCompat.requestPermissions( MapActivity.this, new String[] {  android.Manifest.permission.ACCESS_FINE_LOCATION  },0 );
+        }
+        else {
+            Toast.makeText(MapActivity.this, "Location is ready!", Toast.LENGTH_SHORT).show();
+        }
+
         FragmentManager fragmentManager = getFragmentManager();
         SupportMapFragment mapFragment = (SupportMapFragment) this.getSupportFragmentManager().findFragmentById(R.id.map);
         if (mapFragment != null) {
@@ -92,16 +101,23 @@ public class MapActivity extends AppCompatActivity implements GoogleMap.OnMyLoca
                 public void onMapReady(final GoogleMap map) {
                     gmap=map;
 
+                    while(ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION)
+                            != PackageManager.PERMISSION_GRANTED)
+                    {
+
+                    }
+
                     if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION)
                             == PackageManager.PERMISSION_GRANTED) {
                         gmap.setMyLocationEnabled(true);
+                        //Log.d("Fuck","Google map");
                     } else {
-                        // Show rationale and request permission.
+
                     }
+
                     LatLng SEOUL = new LatLng(37.293918, 126.975426);
                     gmap.moveCamera(CameraUpdateFactory.newLatLng(SEOUL));
                     gmap.animateCamera(CameraUpdateFactory.zoomTo(17));
-                    //
                     gmap.setLatLngBoundsForCameraTarget(skku_campus);
                     gmap.setMinZoomPreference(13.0f);
                     gmap.setMaxZoomPreference(17.0f);
@@ -123,6 +139,7 @@ public class MapActivity extends AppCompatActivity implements GoogleMap.OnMyLoca
         rlp.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0);
         rlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
         rlp.setMargins(0, 0, 150, 200);
+
 
 
         building_getFirebaseDatabase();
@@ -277,7 +294,9 @@ public class MapActivity extends AppCompatActivity implements GoogleMap.OnMyLoca
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             gmap.setMyLocationEnabled(true);
+            //Log.d("Fuck","Google map");
         } else {
+            //Log.d("Fuck","Google map");
             // Show rationale and request permission.
         }
         LatLng SEOUL = new LatLng(37.293918, 126.975426);
