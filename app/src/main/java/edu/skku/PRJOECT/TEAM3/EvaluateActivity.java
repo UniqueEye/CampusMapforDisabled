@@ -137,18 +137,15 @@ public class EvaluateActivity extends AppCompatActivity {
                     addr = place.getAddress();
                     textView_addr.setText(addr);
                     String text = "Lat: " + latitude + "Long: " + longitude;
-                    Toast.makeText(getApplicationContext(), text,
-                            Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getApplicationContext(), text,
+                           // Toast.LENGTH_LONG).show();
                     Log.i(TAG, "Lat: " + latitude + "Log:" + longitude);
                     Log.i(TAG, "Address: "+addr);
                 }catch(NullPointerException e){
-                    Toast.makeText(getApplicationContext(), "Null pointer error try again!",
-                            Toast.LENGTH_LONG).show();
+
                 }
 
                 getFirebaseDatabase();//이미 식당이 있으면 firebase로 부터 가져오고, 그렇지 않으면 가져오지 않음(post에 값을 추가하지 않음)
-                //post.count == 0이면 신규 등록 상점!
-
 
                 if(post.count == 0){//신규 등록 상점
                     post.name = place_name;
@@ -169,17 +166,6 @@ public class EvaluateActivity extends AppCompatActivity {
                 Log.i(TAG, "An error occurred: " + status);
             }
         });
-
-      /*  Button button_search = findViewById(R.id.evaluate_button_search);
-        button_search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String query = searchET.getText().toString();
-
-                if (query.isEmpty())
-                    alert("검색어를 입력하세요");
-            }
-        });*/
 
         if (savedInstanceState != null) {
             place_name = savedInstanceState.getString("name");
@@ -320,10 +306,10 @@ public class EvaluateActivity extends AppCompatActivity {
     //Change UI according to user data.
     public void updateUI(FirebaseUser account) {
         if (account != null) {
-            Toast.makeText(this, "U Signed In successfully", Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, "U Signed In successfully", Toast.LENGTH_LONG).show();
             startActivity(new Intent(this, MapActivity.class));
         } else {
-            Toast.makeText(this, "U Didnt signed in", Toast.LENGTH_LONG).show();
+            // Toast.makeText(this, "U Didnt signed in", Toast.LENGTH_LONG).show();
             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
         }
     }

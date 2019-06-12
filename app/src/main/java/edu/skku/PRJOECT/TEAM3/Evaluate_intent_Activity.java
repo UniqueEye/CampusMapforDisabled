@@ -66,13 +66,6 @@ public class Evaluate_intent_Activity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setSubtitle("접근성 평가");
         setContentView(R.layout.activity_evaluate_intent);
-
-        // Initialize Places.
-        //Places.initialize(getApplicationContext(), apiKey);
-
-        // Create a new Places client instance.
-        //PlacesClient placesClient = Places.createClient(getApplicationContext());
-
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
 
@@ -87,11 +80,6 @@ public class Evaluate_intent_Activity extends AppCompatActivity {
         post.space = intent_evaluate.getExtras().getFloat("space");
         post.count = intent_evaluate.getExtras().getInt("count");
 
-
-
-
-
-        //searchET = findViewById(R.id.evaluate_editText_search);
         doorRB = findViewById(R.id.evaluate_ratingBar_door);
         spaceRB = findViewById(R.id.evaluate_ratingBar_space);
         toiletRB = findViewById(R.id.evaluate_ratingBar_toilet);
@@ -102,16 +90,6 @@ public class Evaluate_intent_Activity extends AppCompatActivity {
         textView_name.setText(post.name);
         textView_addr.setText(post.addr);
         mPostReference = FirebaseDatabase.getInstance().getReference();
-
-        // Initialize the AutocompleteSupportFragment.
-       // AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
-       //         getSupportFragmentManager().findFragmentById(R.id.autocomplete_fragment);
-
-        // Specify the types of place data to return.
-        /*autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME,Place.Field.LAT_LNG, Place.Field.ADDRESS));
-        autocompleteFragment.setLocationRestriction(RectangularBounds.newInstance(
-                new LatLng(37.282266, 126.955033), new LatLng(37.305273, 126.990678)));
-        */
 
         ///rating listener
         doorRB.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
@@ -134,73 +112,6 @@ public class Evaluate_intent_Activity extends AppCompatActivity {
             }
         });
         Log.d("\n1. ack ", Integer.toString(door_ack)+" "+Integer.toString(space_ack)+" "+Integer.toString(toilet_ack) );
-        ///
-
-
-   /*     // Set up a PlaceSelectionListener to handle the response.
-        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
-            @Override
-            public void onPlaceSelected(Place place) {
-                // TODO: Get info about the selected place.
-                place_name = place.getName();
-                Log.i(TAG, "Place: " + place.getName() + ", " + place.getId()+","+place_name);
-                textView_name.setText(place_name);
-
-                location = place.getLatLng();
-                try {
-                    latitude = location.latitude;
-                    longitude = location.longitude;
-                    addr = place.getAddress();
-                    textView_addr.setText(addr);
-                    String text = "Lat: " + latitude + "Long: " + longitude;
-                    Toast.makeText(getApplicationContext(), text,
-                            Toast.LENGTH_LONG).show();
-                    Log.i(TAG, "Lat: " + latitude + "Log:" + longitude);
-                    Log.i(TAG, "Address: "+addr);
-                }catch(NullPointerException e){
-                    Toast.makeText(getApplicationContext(), "Null pointer error try again!",
-                            Toast.LENGTH_LONG).show();
-                }
-
-                getFirebaseDatabase();//이미 식당이 있으면 firebase로 부터 가져오고, 그렇지 않으면 가져오지 않음(post에 값을 추가하지 않음)
-                //post.count == 0이면 신규 등록 상점!
-
-
-                if(post.count == 0){//신규 등록 상점
-                    post.name = place_name;
-                    post.addr = addr;
-                    post.lat = latitude;
-                    post.lon = longitude;
-                    Log.i(TAG, "Name " + place_name + " addr: " + addr + " Lat: " + latitude + " Lon: "+latitude);
-                }
-                else{
-                    Log.i(TAG, "기존 식당 Name " + place_name + " addr: " + addr + " Lat: " + latitude + " Lon: "+latitude);
-                }
-
-            }
-
-            @Override
-            public void onError(Status status) {
-                // TODO: Handle the error.
-                Log.i(TAG, "An error occurred: " + status);
-            }
-        });
-        */
-
-      /*  Button button_search = findViewById(R.id.evaluate_button_search);
-        button_search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String query = searchET.getText().toString();
-
-                if (query.isEmpty())
-                    alert("검색어를 입력하세요");
-            }
-        });*/
-
-
-
-
 
     } //onCreate
 
@@ -257,40 +168,10 @@ public class Evaluate_intent_Activity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-/*
-    public void getFirebaseDatabase() {
-        final ValueEventListener postListener = new ValueEventListener() {
-
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.d("getFirebase: ", "Check this out");
-
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    String key = postSnapshot.getKey();
-                    Log.d("Key-> ", key+"/"+place_name);
-
-                    if (key.equals(place_name)) {//식당 이름이랑 주소가 같은 것만 가져온다.
-                        Log.d("getDB", "Success");
-                        post = postSnapshot.getValue(StorePost.class);
-                        Log.d(TAG, "firebase Name " + post.name + " addr: " + post.addr + " Lat: " + post.lat + " Lon: "+post.lon+ " Door: "+ post.door);
-                        Log.d(TAG,"post.count: "+String.valueOf(post.count));
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {}
-        };
-
-        mPostReference.child("store").addValueEventListener(postListener);
-    }
-    */
 
     public void postFirebaseDatabase() {
         Map<String, Object> postValues = post.toMap();
         Map<String, Object> childUpdates = new HashMap<>();
-
-        //post = new StorePost(name, addr, latitude, longitude, count, door, space, toilet, count);//?
 
         childUpdates.put("/store/" + post.name, postValues);
         mPostReference.updateChildren(childUpdates);
@@ -316,10 +197,10 @@ public class Evaluate_intent_Activity extends AppCompatActivity {
     //Change UI according to user data.
     public void updateUI(FirebaseUser account) {
         if (account != null) {
-            Toast.makeText(this, "U Signed In successfully", Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, "U Signed In successfully", Toast.LENGTH_LONG).show();
             startActivity(new Intent(this, MapActivity.class));
         } else {
-            Toast.makeText(this, "U Didnt signed in", Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, "U Didnt signed in", Toast.LENGTH_LONG).show();
             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
         }
     }

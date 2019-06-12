@@ -110,7 +110,6 @@ public class MapActivity extends AppCompatActivity implements GoogleMap.OnMyLoca
                     if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION)
                             == PackageManager.PERMISSION_GRANTED) {
                         gmap.setMyLocationEnabled(true);
-                        //Log.d("Fuck","Google map");
                     } else {
 
                     }
@@ -294,9 +293,8 @@ public class MapActivity extends AppCompatActivity implements GoogleMap.OnMyLoca
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             gmap.setMyLocationEnabled(true);
-            //Log.d("Fuck","Google map");
+
         } else {
-            //Log.d("Fuck","Google map");
             // Show rationale and request permission.
         }
         LatLng SEOUL = new LatLng(37.293918, 126.975426);

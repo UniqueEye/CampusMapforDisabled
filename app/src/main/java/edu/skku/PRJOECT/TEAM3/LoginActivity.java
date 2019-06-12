@@ -44,10 +44,6 @@ public class LoginActivity extends BaseActivity {
             public void onClick(View v) {
 
                 signIn(login_id.getText().toString(), login_password.getText().toString());
-            //    Intent intent_login = new Intent(LoginActivity.this, MapActivity.class);
-            //    intent_login.putExtra("id", login_id.getText().toString());
-            //    intent_login.putExtra("password", login_password.getText().toString());
-            //    startActivity(intent_login);
             }
         });
 
