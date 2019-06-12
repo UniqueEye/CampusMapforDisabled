@@ -138,7 +138,7 @@ public class MapActivity extends AppCompatActivity implements GoogleMap.OnMyLoca
         // position on right bottom
         rlp.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0);
         rlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
-        rlp.setMargins(0, 0, 150, 200);
+        rlp.setMargins(0, 0, 150, 150);
 
 
 
@@ -304,7 +304,6 @@ public class MapActivity extends AppCompatActivity implements GoogleMap.OnMyLoca
 
         map.moveCamera(CameraUpdateFactory.newLatLng(SEOUL));
         map.animateCamera(CameraUpdateFactory.zoomTo(17));
-
 
         //gmap.setMyLocationEnabled(true);
         gmap.setOnMyLocationButtonClickListener(this);
