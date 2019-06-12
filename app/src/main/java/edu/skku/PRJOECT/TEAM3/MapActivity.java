@@ -84,6 +84,14 @@ public class MapActivity extends AppCompatActivity implements GoogleMap.OnMyLoca
         store_mPostReference = FirebaseDatabase.getInstance().getReference();
         building_mPostReference = FirebaseDatabase.getInstance().getReference();
 
+        if ( Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission( getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION ) != PackageManager.PERMISSION_GRANTED )
+        {
+            ActivityCompat.requestPermissions( MapActivity.this, new String[] {  android.Manifest.permission.ACCESS_FINE_LOCATION  },0 );
+        }
+        else {
+            Toast.makeText(MapActivity.this, "Location is ready!", Toast.LENGTH_SHORT).show();
+        }
+
         FragmentManager fragmentManager = getFragmentManager();
         SupportMapFragment mapFragment = (SupportMapFragment) this.getSupportFragmentManager().findFragmentById(R.id.map);
         if (mapFragment != null) {
@@ -91,6 +99,12 @@ public class MapActivity extends AppCompatActivity implements GoogleMap.OnMyLoca
                 @Override
                 public void onMapReady(final GoogleMap map) {
                     gmap=map;
+
+                    while(ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION)
+                            != PackageManager.PERMISSION_GRANTED)
+                    {
+
+                    }
 
                     if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION)
                             == PackageManager.PERMISSION_GRANTED) {
@@ -121,7 +135,7 @@ public class MapActivity extends AppCompatActivity implements GoogleMap.OnMyLoca
         // position on right bottom
         rlp.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0);
         rlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
-        rlp.setMargins(0, 0, 150, 200);
+        rlp.setMargins(0, 0, 150, 150);
 
 
         building_getFirebaseDatabase();
@@ -273,12 +287,6 @@ public class MapActivity extends AppCompatActivity implements GoogleMap.OnMyLoca
     public void onMapReady(final GoogleMap map) {
         gmap=map;
 
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED) {
-            gmap.setMyLocationEnabled(true);
-        } else {
-            // Show rationale and request permission.
-        }
         LatLng SEOUL = new LatLng(37.293918, 126.975426);
         MarkerOptions markerOptions = new MarkerOptions();
 
