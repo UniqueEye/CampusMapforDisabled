@@ -110,12 +110,12 @@ public class LoginActivity extends BaseActivity {
     //Change UI according to user data.
     public void updateUI(FirebaseUser account) {
         if (account != null) {
-            Toast.makeText(this, "U Signed In successfully", Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, "로그인 성공", Toast.LENGTH_SHORT).show();
             Log.d(TAG, "Before sending intent in from loginActivity");
             Intent intent_map = new Intent(getApplicationContext(), MapActivity.class);
             startActivity(intent_map);
         } else {
-            Toast.makeText(this, "U Didnt signed in", Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, "로그인 실패", Toast.LENGTH_SHORT).show();
         }
     }
 

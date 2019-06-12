@@ -20,6 +20,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
@@ -89,7 +90,7 @@ public class MapActivity extends AppCompatActivity implements GoogleMap.OnMyLoca
             ActivityCompat.requestPermissions( MapActivity.this, new String[] {  android.Manifest.permission.ACCESS_FINE_LOCATION  },0 );
         }
         else {
-            Toast.makeText(MapActivity.this, "Location is ready!", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(MapActivity.this, "Location is ready!", Toast.LENGTH_SHORT).show();
         }
 
         FragmentManager fragmentManager = getFragmentManager();
@@ -109,20 +110,22 @@ public class MapActivity extends AppCompatActivity implements GoogleMap.OnMyLoca
                     if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION)
                             == PackageManager.PERMISSION_GRANTED) {
                         gmap.setMyLocationEnabled(true);
+                        //Log.d("Fuck","Google map");
                     } else {
-                        // Show rationale and request permission.
+
                     }
+
                     LatLng SEOUL = new LatLng(37.293918, 126.975426);
                     gmap.moveCamera(CameraUpdateFactory.newLatLng(SEOUL));
                     gmap.animateCamera(CameraUpdateFactory.zoomTo(17));
-                    //
                     gmap.setLatLngBoundsForCameraTarget(skku_campus);
                     gmap.setMinZoomPreference(13.0f);
                     gmap.setMaxZoomPreference(17.0f);
+
                 }
             });
         } else {
-            Toast.makeText(this, "Error - Map Fragment was null!!", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "Error - Map Fragment was null!!", Toast.LENGTH_SHORT).show();
         }
 
 
@@ -136,6 +139,7 @@ public class MapActivity extends AppCompatActivity implements GoogleMap.OnMyLoca
         rlp.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0);
         rlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
         rlp.setMargins(0, 0, 150, 150);
+
 
 
         building_getFirebaseDatabase();
@@ -287,12 +291,19 @@ public class MapActivity extends AppCompatActivity implements GoogleMap.OnMyLoca
     public void onMapReady(final GoogleMap map) {
         gmap=map;
 
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            gmap.setMyLocationEnabled(true);
+            //Log.d("Fuck","Google map");
+        } else {
+            //Log.d("Fuck","Google map");
+            // Show rationale and request permission.
+        }
         LatLng SEOUL = new LatLng(37.293918, 126.975426);
         MarkerOptions markerOptions = new MarkerOptions();
 
         map.moveCamera(CameraUpdateFactory.newLatLng(SEOUL));
         map.animateCamera(CameraUpdateFactory.zoomTo(17));
-
 
         //gmap.setMyLocationEnabled(true);
         gmap.setOnMyLocationButtonClickListener(this);
@@ -346,10 +357,10 @@ public class MapActivity extends AppCompatActivity implements GoogleMap.OnMyLoca
     //Change UI according to user data.
     public void updateUI(FirebaseUser account) {
         if (account != null) {
-            Toast.makeText(this, "U Signed In successfully", Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, "U Signed In successfully", Toast.LENGTH_LONG).show();
             startActivity(new Intent(this, MapActivity.class));
         } else {
-            Toast.makeText(this, "U Didnt signed in", Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, "U Didnt signed in", Toast.LENGTH_LONG).show();
             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
         }
     }
